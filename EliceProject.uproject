@@ -1,0 +1,16 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{B963FE51-45C7-137D-FA7A-E7937F2C6C96}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "EliceProject",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine"
+			]
+		}
+	]
+}
