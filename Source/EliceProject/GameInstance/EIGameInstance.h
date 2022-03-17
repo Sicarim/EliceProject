@@ -34,7 +34,7 @@ public:
 	virtual void OnStart() override;
 	virtual void Shutdown() override;
 
-private:
+protected:
 	UPROPERTY(Transient)
 	TMap<FName, UObject*> m_Instance;
 };
