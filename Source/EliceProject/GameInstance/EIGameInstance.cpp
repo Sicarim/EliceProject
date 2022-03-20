@@ -9,7 +9,7 @@ UEIGameInstance::UEIGameInstance()
 
 void UEIGameInstance::Init()
 {
-
+    UE_LOG(LogTemp, Log, TEXT("NotifyActorBeginOverlap"));
 }
 
 void UEIGameInstance::StartGameInstance()
