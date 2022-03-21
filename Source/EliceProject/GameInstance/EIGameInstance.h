@@ -9,6 +9,9 @@
 /**
  * 
  */
+
+class UEIInteractionSystem;
+
 UCLASS()
 class ELICEPROJECT_API UEIGameInstance : public UGameInstance
 {
@@ -21,11 +24,22 @@ public:
 	template <typename T>
 	T* GetInstance()
 	{
-		const FName Key = T:StaticClass->GetName();
+		const FName Key = FName(T::StaticClass()->GetName());
 		if (m_Instance.Contains(Key) == false)
 			return nullptr;
 
 		return Cast<T>(m_Instance[Key]);
+	}
+
+	template <typename T = UObject>
+	bool AddInstance(T* Inst)
+	{
+		const FName Key = FName(T::StaticClass()->GetName());
+		if (nullptr != m_Instance.Find(Key))
+			return false;
+
+		m_Instance.Add(Key, Inst);
+		return true;
 	}
 
 public:
@@ -33,6 +47,11 @@ public:
 	virtual void StartGameInstance() override;
 	virtual void OnStart() override;
 	virtual void Shutdown() override;
+
+protected:
+	UEIInteractionSystem* GetInteractionSystem();
+
+	void CreateInstance();
 
 protected:
 	UPROPERTY(Transient)

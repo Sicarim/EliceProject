@@ -17,7 +17,6 @@ AEIGameCharacter::AEIGameCharacter()
 void AEIGameCharacter::BeginPlay()
 {
     Super::BeginPlay();
-
 	//m_PlayerController = GetController();
 }
 

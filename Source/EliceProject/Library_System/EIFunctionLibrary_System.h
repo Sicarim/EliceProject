@@ -11,6 +11,7 @@
  */
 
 class UEIGameInstance;
+class UEIInteractionSystem;
 
 UCLASS(BlueprintType)
 class ELICEPROJECT_API UEIFunctionLibrary_System : public UBlueprintFunctionLibrary
@@ -23,5 +24,8 @@ public:
 public:
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (WorldContext = "WorldContextObject"))
 	static UEIGameInstance* GetGameInstance(UObject* WorldContextObject);
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (WorldContext = "WorldContextObject"))
+	static UEIInteractionSystem* GetInteractionSystem(UObject* WorldContextObject);
 
 };
