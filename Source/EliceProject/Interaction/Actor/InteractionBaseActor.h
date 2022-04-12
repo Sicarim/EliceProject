@@ -25,6 +25,8 @@ protected:
 	virtual void Tick(float DeltaTime) override;
 
 protected:
+
+protected:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "InteractionComponent", DisplayName = "InteractionComponent")
 	UEIInteractionComponent* m_InteractionComponent;
 

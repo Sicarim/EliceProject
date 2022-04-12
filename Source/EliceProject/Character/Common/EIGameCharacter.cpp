@@ -4,8 +4,12 @@
 
 #include "../../Component/Character/EICharacterMovementComponent.h"
 
+#include "Interaction/Component/EIInteractionComponent.h"
+
 AEIGameCharacter::AEIGameCharacter()
 {
+	m_InteractionComponent = CreateDefaultSubobject<UEIInteractionComponent>(TEXT("CharacterInteractionComponent"));
+
 	//CharacterMovementComponent = CreateDefaultSubobject<UEICharacterMovementComponent>(TEXT("EICharacterMovementComponent"));
 	//if (nullptr != CharacterMovementComponent)
 	//{

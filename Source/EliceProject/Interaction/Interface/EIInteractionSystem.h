@@ -11,10 +11,35 @@
  * TO DO : Intance에 추가할 InteractionSystem
  */
 
+class UWorld;
+
+class UEIGameInstance;
+class UEIInteractionComponent;
+
 DECLARE_DELEGATE_ThreeParams(FInteractionEvent, AActor*, EIInteractionObjectType, AActor*)
 DECLARE_MULTICAST_DELEGATE_ThreeParams(FBeginOverlapEvent, AActor*, EIInteractionObjectType, AActor*)
 DECLARE_MULTICAST_DELEGATE_ThreeParams(FExecuteEvent, AActor*, EIInteractionObjectType, AActor*)
 DECLARE_MULTICAST_DELEGATE_ThreeParams(FEndOverlapEvent, AActor*, EIInteractionObjectType, AActor*)
+
+USTRUCT(BlueprintType)
+struct FEIInteractionInfo
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY()
+	int32 Key;
+
+	UPROPERTY()
+	UEIInteractionComponent* InteractionComponent;
+
+public:
+	FEIInteractionInfo()
+	{
+		Key = 0;
+		InteractionComponent = nullptr;
+	}
+};
 
 UCLASS()
 class ELICEPROJECT_API UEIInteractionSystem : public UObject
@@ -25,16 +50,49 @@ public:
 	UEIInteractionSystem();
 
 public:
+	//* Interaction Add */
+	void AddInteraction(UEIInteractionComponent* InComponent);
+	void DediTest();
+
+	void Please();
+
+	//* Interaction Dedi */
+	UFUNCTION(Server, Reliable)
+	void Server_InteractionListSync(const TArray<FEIInteractionInfo>& InArray);
+	void Server_InteractionListSync_Implementation(const TArray<FEIInteractionInfo>& InArray);
+
+	UFUNCTION(Client, Reliable)
+	void Client_InteractionListSync(const TArray<FEIInteractionInfo>& InArray);
+	void Client_InteractionListSync_Implementation(const TArray<FEIInteractionInfo>& InArray);
+
+	UFUNCTION(NetMulticast, Reliable)
+	void NetMulticast_InteractionListSync(const TArray<FEIInteractionInfo>& InArray);
+	void NetMulticast_InteractionListSync_Implementation(const TArray<FEIInteractionInfo>& InArray);
+	
+	//* Interaction Bind */
 	void Bind_BeginOverlap(EIInteractionObjectType InType, const FInteractionEvent& InDelegate);
 	void Bind_Execute(EIInteractionObjectType InType, const FInteractionEvent& InDelegate);
 	void Bind_EndOverlap(EIInteractionObjectType InType, const FInteractionEvent& InDelegate);
 
-	void BroadCast_BeginOverlap(EIInteractionObjectType InType);
-	void BroadCast_ExecuteOverlap();
-	void BroadCast_EndOverlap();
+	//* Interaction UnBind */
+
+	//* Interaction BroadCast */
+	void BroadCast_BeginOverlap(AActor* InFirst, EIInteractionObjectType InType, AActor* InSecond);
+	void BroadCast_ExecuteOverlap(AActor* InFirst, EIInteractionObjectType InType, AActor* InSecond);
+	void BroadCast_EndOverlap(AActor* InFirst, EIInteractionObjectType InType, AActor* InSecond);
+
+private:
+	UWorld* InstanceGetWorld();
 
 protected:
+	//TMap<int32, UEIInteractionComponent*> m_InteractionList;
+	TArray<FEIInteractionInfo> m_InteractionList;
+
 	TMap<EIInteractionObjectType, FBeginOverlapEvent> m_BeginOverlapList;
 	TMap<EIInteractionObjectType, FExecuteEvent> m_ExecuteList;
 	TMap<EIInteractionObjectType, FEndOverlapEvent> m_EndOverlapList;
+
+private:
+	UEIGameInstance* m_GameInstance;
+	int32 m_InteractionKey = 0;
 };

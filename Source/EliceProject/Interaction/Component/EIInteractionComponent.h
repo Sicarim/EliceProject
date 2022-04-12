@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Interaction/Interface/EIInteractionSystem.h"
+#include "Interaction/Interface/EIInteractionEnum.h"
 #include "EIInteractionComponent.generated.h"
 
 
@@ -19,8 +20,23 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty >& OutLifetimeProps) const;
+
+protected:
+	void SearchInteraction();
+	void UpdateInteractionData();
 		
 protected:
 	UFUNCTION()
 	void Test();
+	void Please();
+
+protected:
+	UPROPERTY(Replicated)
+	bool m_CheckTimeStart = false;
+
+	float m_ActiveTime = 10.f;
+	float m_ActiveTimer = 0.f;
+	bool m_StartTime = false;
 };

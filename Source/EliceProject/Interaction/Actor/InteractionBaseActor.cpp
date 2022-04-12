@@ -20,6 +20,4 @@ void AInteractionBaseActor::BeginPlay()
 void AInteractionBaseActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
-

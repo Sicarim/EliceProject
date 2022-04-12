@@ -2,9 +2,80 @@
 
 #include "Interaction/Interface/EIInteractionSystem.h"
 
+#include "Net/UnrealNetwork.h"
+#include "Kismet/GameplayStatics.h"
+
+
+#include "GameInstance/EIGameInstance.h"
+#include "Interaction/Component/EIInteractionComponent.h"
+
 UEIInteractionSystem::UEIInteractionSystem()
 {
 
+}
+
+//----------------------------Public----------------------------//
+void UEIInteractionSystem::AddInteraction(UEIInteractionComponent* InComponent)
+{
+    FEIInteractionInfo InteractionInfo;
+
+    InteractionInfo.Key = m_InteractionKey++;
+    InteractionInfo.InteractionComponent = InComponent;
+
+    m_InteractionList.Add(InteractionInfo);
+}
+
+void UEIInteractionSystem::DediTest()
+{
+    if (GetWorld()->GetNetMode() == NM_DedicatedServer)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("NetMode :: Dedi  ListCount : %d"), m_InteractionList.Num());
+        //Server_InteractionListSync(m_InteractionList);
+        Client_InteractionListSync(m_InteractionList);
+        //NetMulticast_InteractionListSync(m_InteractionList);
+    }
+        
+    if (GetWorld()->GetNetMode() == NM_Client)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("NetMode :: Client  ListCount : %d"), m_InteractionList.Num());
+    }
+}
+
+void UEIInteractionSystem::Please()
+{
+    if (GetWorld()->GetNetMode() == NM_Client)
+        UE_LOG(LogTemp, Warning, TEXT("NetMode :   ListCount : %d"), m_InteractionList.Num());
+}
+
+void UEIInteractionSystem::Server_InteractionListSync_Implementation(const TArray<FEIInteractionInfo>& InArray)
+{
+    m_InteractionList = InArray;
+    Client_InteractionListSync(m_InteractionList);
+    NetMulticast_InteractionListSync(m_InteractionList);
+    //if (GetWorld()->GetNetMode() == NM_Client)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("NetMode :: Client  ListCount : %d"), m_InteractionList.Num());
+    }
+}
+
+void UEIInteractionSystem::Client_InteractionListSync_Implementation(const TArray<FEIInteractionInfo>& InArray)
+{
+    m_InteractionList = InArray;
+    //Server_InteractionListSync(m_InteractionList);
+    NetMulticast_InteractionListSync(m_InteractionList);
+   // if (GetWorld()->GetNetMode() == NM_Client)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("NetMode :: Client  ListCount : %d"), m_InteractionList.Num());
+    }
+}
+
+void UEIInteractionSystem::NetMulticast_InteractionListSync_Implementation(const TArray<FEIInteractionInfo>& InArray)
+{
+    m_InteractionList = InArray;
+    //if (GetWorld()->GetNetMode() == NM_Client)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("NetMode :: Client  ListCount : %d"), m_InteractionList.Num());
+    }
 }
 
 void UEIInteractionSystem::Bind_BeginOverlap(EIInteractionObjectType InType, const FInteractionEvent& InDelegate)
@@ -22,18 +93,34 @@ void UEIInteractionSystem::Bind_EndOverlap(EIInteractionObjectType InType, const
     m_EndOverlapList.FindOrAdd(InType).Add(InDelegate);
 }
 
-void UEIInteractionSystem::BroadCast_BeginOverlap(EIInteractionObjectType InType)
+void UEIInteractionSystem::BroadCast_BeginOverlap(AActor* InFirst, EIInteractionObjectType InType, AActor* InSecond)
 {
-    //m_BeginOverlapList.Find(InType)->Broadcast(InType);
+    m_BeginOverlapList.Find(InType)->Broadcast(InFirst, InType, InSecond);
 }
 
-void UEIInteractionSystem::BroadCast_ExecuteOverlap()
+void UEIInteractionSystem::BroadCast_ExecuteOverlap(AActor* InFirst, EIInteractionObjectType InType, AActor* InSecond)
 {
-
+    m_ExecuteList.Find(InType)->Broadcast(InFirst, InType, InSecond);
 }
 
-void UEIInteractionSystem::BroadCast_EndOverlap()
+void UEIInteractionSystem::BroadCast_EndOverlap(AActor* InFirst, EIInteractionObjectType InType, AActor* InSecond)
 {
-
+    m_EndOverlapList.Find(InType)->Broadcast(InFirst, InType, InSecond);
 }
+//--------------------------Public_END--------------------------//
 
+
+//----------------------------Protected----------------------------//
+
+//--------------------------Protected_END--------------------------//
+
+//----------------------------Private----------------------------//
+UWorld* UEIInteractionSystem::InstanceGetWorld()
+{
+    m_GameInstance = Cast<UEIGameInstance>(UGameplayStatics::GetGameInstance(this));
+    if (nullptr == m_GameInstance)
+        return nullptr;
+
+    return m_GameInstance->GetWorld();
+}
+//--------------------------Private_END--------------------------//

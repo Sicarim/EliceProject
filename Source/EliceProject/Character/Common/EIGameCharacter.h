@@ -10,9 +10,10 @@
  * TO DO : 기본이 되는 GameCharacter
  */
 
+class AEIPlayerController;
+class UEIInteractionComponent;
 class UEICharacterMovementComponent;
 class UCharacterMovementComponent;
-class AEIPlayerController;
 
 UCLASS()
 class ELICEPROJECT_API AEIGameCharacter : public AEICharacter
@@ -34,4 +35,6 @@ public:
 
 protected:
 	//AEIPlayerController* m_PlayerController;
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "InteractionComponent", DisplayName = "InteractionComponent")
+	UEIInteractionComponent* m_InteractionComponent;
 };
