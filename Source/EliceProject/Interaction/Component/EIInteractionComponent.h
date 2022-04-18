@@ -23,9 +23,16 @@ protected:
 
 	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty >& OutLifetimeProps) const;
 
+public:
+	// Get
+	FORCEINLINE EIInteractionObjectType GetInteractionObjectType() { return m_InteractionObjectType; }
+
 protected:
 	void SearchInteraction();
 	void UpdateInteractionData();
+
+private:
+	void SetUpInteraction();
 		
 protected:
 	UFUNCTION()
@@ -33,10 +40,6 @@ protected:
 	void Please();
 
 protected:
-	UPROPERTY(Replicated)
-	bool m_CheckTimeStart = false;
-
-	float m_ActiveTime = 10.f;
-	float m_ActiveTimer = 0.f;
-	bool m_StartTime = false;
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "InteractionBaseOption")
+	EIInteractionObjectType m_InteractionObjectType = EIInteractionObjectType::None;
 };

@@ -14,7 +14,16 @@ enum class EIInteractionEventType : uint8
 };
 
 UENUM(BlueprintType)
+enum class EIInteractionOwnerType : uint8
+{
+    None,
+    Interaction_Doer        UMETA(DisplayName = "인터랙션 주체자"),
+    Interaction_Object      UMETA(DisplayName = "인터랙션 행위자"),
+};
+
+UENUM(BlueprintType)
 enum class EIInteractionObjectType : uint8
 {
     None,
+    Puzzle        UMETA(DisplayName = "퍼즐"),
 };

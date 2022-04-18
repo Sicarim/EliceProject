@@ -6,7 +6,7 @@
 
 AInteractionBaseActor::AInteractionBaseActor()
 {
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 	m_InteractionComponent = CreateDefaultSubobject<UEIInteractionComponent>(TEXT("InteractionComponent"));
 }
