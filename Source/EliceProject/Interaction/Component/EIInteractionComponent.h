@@ -54,6 +54,8 @@ public:
 	FORCEINLINE void SetInteractionOwnerType(EIInteractionOwnerType InOwnerType) { m_OwnerType = InOwnerType; }
 	FORCEINLINE void SetInteractionObjectType(EIInteractionObjectType InObjectType) { m_ObjectType = InObjectType; }
 
+	bool NotifyInteractionEvent(AActor* InActor, EIInteractionEventType InEventType);
+
 protected:
 	void SearchInteraction();
 	void UpdateInteractionData(TArray<FHitResult>& InHitList);
@@ -76,4 +78,7 @@ protected:
 private:
 	UPROPERTY()
 	TArray<FEIInteractionData> m_InteractionDataList;
+
+	UPROPERTY(Transient)
+	TArray<FEIInteractionData> m_CachedInterationDataList;
 };

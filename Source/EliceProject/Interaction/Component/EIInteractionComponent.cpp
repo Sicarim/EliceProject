@@ -58,7 +58,11 @@ void UEIInteractionComponent::GetLifetimeReplicatedProps(TArray< FLifetimeProper
 }
 
 //----------------------------Public----------------------------//
-
+//* Interaction 실행 */
+bool UEIInteractionComponent::NotifyInteractionEvent(AActor* InActor, EIInteractionEventType InEventType)
+{
+	return true;
+}
 //--------------------------Public_END--------------------------//
 
 
@@ -105,13 +109,44 @@ void UEIInteractionComponent::SearchInteraction()
 		//오브젝트가 주체인 경우 해당 내용 구현
 	}
 
+	//인터랙션 정보 업데이트
 	UpdateInteractionData(AppendHitList);
 }
 
 //* 인터랙션 정보 업데이트 */
 void UEIInteractionComponent::UpdateInteractionData(TArray<FHitResult>& InHitList)
-{
+{		
+	EIInteractionEventType ChangedEvent = EIInteractionEventType::None;
+
+	//EndOverlap시
+	for (FEIInteractionData& Data : m_InteractionDataList)
+	{
+	}
+
+	//BeginOverlap시
+	for (const FHitResult& Data : InHitList)
+	{
+		FEIInteractionData BeginData;
+
+		//데이터가 먼저 있는지 확인
+		FEIInteractionData* FindData = m_InteractionDataList.FindByPredicate([Data](const FEIInteractionData& Data)
+			{
+				return true; 
+			});
+
+		BeginData.m_InteractionActor = Data.Actor.Get();
+		BeginData.m_CurrentState = EIInteractionStateType::BeginInteraction;
+
+		m_CachedInterationDataList.Add(BeginData);
+		m_InteractionDataList.Append(m_CachedInterationDataList);
+	}
 	
+	//인터랙션 실행
+	if (m_InteractionDataList.Num() != 0)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("not impty"));
+	}
+
 }
 //--------------------------Protected_END--------------------------//
 
