@@ -15,7 +15,6 @@ void AEIInteractionPuzzle::BeginPlay()
 {
     Super::BeginPlay();
 
-    m_BoxCollision->OnComponentEndOverlap.AddDynamic(this, &AEIInteractionPuzzle::OnOverlapBegin);
 }
 
 void AEIInteractionPuzzle::Tick(float DeltaTime)

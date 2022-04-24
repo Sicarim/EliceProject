@@ -6,6 +6,8 @@
 #include "UObject/Interface.h"
 #include "EIInteraction.generated.h"
 
+class UEIInteractionComponent;
+
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
 class UEIInteraction : public UInterface
@@ -25,6 +27,8 @@ public:
 	IEIInteraction() {}
 
 public:
+	virtual UEIInteractionComponent* GetInteractionComponent() { return nullptr; }
+
 	//인터랙션과 오버랩 여부
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	bool IsOverlapInteraction();

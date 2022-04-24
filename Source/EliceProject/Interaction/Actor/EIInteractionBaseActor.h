@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Interaction/Interface/EIInteraction.h"
 #include "EIInteractionBaseActor.generated.h"
 
 class UEIInteractionComponent;
@@ -13,7 +14,7 @@ class UEIInteractionComponent;
  */
 
 UCLASS(BlueprintType, Blueprintable)
-class ELICEPROJECT_API AEIInteractionBaseActor : public AActor
+class ELICEPROJECT_API AEIInteractionBaseActor : public AActor, public IEIInteraction
 {
 	GENERATED_BODY()
 	
@@ -24,9 +25,14 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
+	
+public:
+	FORCEINLINE UEIInteractionComponent* GetInteractionComponent() { return m_InteractionComponent; }
+
 
 protected:
 	void InitInteraction();
+	void IsEnableInteraction_Implimatation();
 
 protected:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "InteractionComponent", DisplayName = "InteractionComponent")

@@ -34,6 +34,8 @@ public:
 	//FORCEINLINE UCharacterMovementComponent* GetCharacterMovementComponent() { return GetMovementComponent(); }
 	//FORCEINLINE AEIPlayerController* GetPlayerController() { return m_PlayerController; }
 
+	FORCEINLINE UEIInteractionComponent* GetInteractionComponent() { return m_InteractionComponent; }
+
 protected:
 	void InitCharacter();
 

@@ -64,8 +64,6 @@ private:
 	void SetUpInteraction();
 		
 protected:
-	UFUNCTION()
-	void Test();
 	void Please();
 
 protected:
@@ -78,7 +76,4 @@ protected:
 private:
 	UPROPERTY()
 	TArray<FEIInteractionData> m_InteractionDataList;
-
-	UPROPERTY(Transient)
-	TArray<FEIInteractionData> m_CachedInterationDataList;
 };

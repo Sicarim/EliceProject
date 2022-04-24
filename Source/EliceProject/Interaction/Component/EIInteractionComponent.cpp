@@ -11,6 +11,7 @@
 #include "Interaction/Interface/EIInteractionSystem.h"
 
 #include "Character/Common/EIGameCharacter.h"
+#include "Interaction/Interface/EIInteraction.h"
 #include "Interaction/Actor/EIInteractionBaseActor.h"
 
 UEIInteractionComponent::UEIInteractionComponent()
@@ -30,7 +31,7 @@ void UEIInteractionComponent::BeginPlay()
 	if (InteractionSystem == nullptr || InteractionSystem->IsValidLowLevel() == false)
 		return;
 
-
+	InteractionSystem->AddInteraction(this);
 
 
 	//InteractionSystem->Please();
@@ -61,6 +62,8 @@ void UEIInteractionComponent::GetLifetimeReplicatedProps(TArray< FLifetimeProper
 //* Interaction 실행 */
 bool UEIInteractionComponent::NotifyInteractionEvent(AActor* InActor, EIInteractionEventType InEventType)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Name : %s"), *GetOwner()->GetName());
+
 	return true;
 }
 //--------------------------Public_END--------------------------//
@@ -115,38 +118,64 @@ void UEIInteractionComponent::SearchInteraction()
 
 //* 인터랙션 정보 업데이트 */
 void UEIInteractionComponent::UpdateInteractionData(TArray<FHitResult>& InHitList)
-{		
-	EIInteractionEventType ChangedEvent = EIInteractionEventType::None;
+{	
+	TArray<AActor*> BeginOverlapList, EndOverlapList;
 
 	//EndOverlap시
 	for (FEIInteractionData& Data : m_InteractionDataList)
 	{
+		//NotifyInteractionEvent(GetOwner(), EIInteractionEventType::EndOverlap);
 	}
 
 	//BeginOverlap시
 	for (const FHitResult& Data : InHitList)
 	{
-		FEIInteractionData BeginData;
-
 		//데이터가 먼저 있는지 확인
-		FEIInteractionData* FindData = m_InteractionDataList.FindByPredicate([Data](const FEIInteractionData& Data)
+		FEIInteractionData* FindData = m_InteractionDataList.FindByPredicate([Data](const FEIInteractionData& IsData)
 			{
-				return true; 
+				return IsData.m_InteractionActor == Data.Actor.Get();
 			});
 
+		//데이터가 있다면 스킵
+		if (nullptr != FindData)
+			continue;
+
+		FEIInteractionData BeginData;
 		BeginData.m_InteractionActor = Data.Actor.Get();
 		BeginData.m_CurrentState = EIInteractionStateType::BeginInteraction;
 
-		m_CachedInterationDataList.Add(BeginData);
-		m_InteractionDataList.Append(m_CachedInterationDataList);
-	}
-	
-	//인터랙션 실행
-	if (m_InteractionDataList.Num() != 0)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("not impty"));
+		m_InteractionDataList.Add(BeginData);
+		BeginOverlapList.Add(BeginData.m_InteractionActor);
 	}
 
+
+	//인터랙션 실행 - EndOverlap
+	for (AActor* Actor : EndOverlapList)
+	{
+		IEIInteraction* Interaction = Cast<IEIInteraction>(Actor);
+		if (nullptr == Interaction)
+			continue;
+
+		UEIInteractionComponent* InteractionComponent = Interaction->GetInteractionComponent();
+		if (nullptr == InteractionComponent || false == InteractionComponent->IsValidLowLevel())
+			continue;
+
+		InteractionComponent->NotifyInteractionEvent(GetOwner(), EIInteractionEventType::EndOverlap);
+	}
+	
+	//인터랙션 실행 - BegineOverlap
+	for (AActor* Actor : BeginOverlapList)
+	{
+		IEIInteraction* Interaction = Cast<IEIInteraction>(Actor);
+		if (nullptr == Interaction)
+			continue;
+
+		UEIInteractionComponent* InteractionComponent = Interaction->GetInteractionComponent();
+		if (nullptr == InteractionComponent || false == InteractionComponent->IsValidLowLevel())
+			continue;
+
+		InteractionComponent->NotifyInteractionEvent(GetOwner(), EIInteractionEventType::BeginOverlap);
+	}
 }
 //--------------------------Protected_END--------------------------//
 
@@ -171,15 +200,6 @@ void UEIInteractionComponent::SetUpInteraction()
 }
 //--------------------------Private_END--------------------------//
 
-void UEIInteractionComponent::Test()
-{
-	UEIInteractionSystem* InteractionSystem = UEIFunctionLibrary_System::GetInteractionSystem(GetOwner()->GetWorld());
-	if (InteractionSystem == nullptr || InteractionSystem->IsValidLowLevel() == false)
-		return;
-
-	InteractionSystem->DediTest();
-
-}
 void UEIInteractionComponent::Please()
 {
 	UEIInteractionSystem* InteractionSystem = UEIFunctionLibrary_System::GetInteractionSystem(GetOwner()->GetWorld());
