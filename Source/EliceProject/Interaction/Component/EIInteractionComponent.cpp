@@ -66,6 +66,8 @@ void UEIInteractionComponent::GetLifetimeReplicatedProps(TArray< FLifetimeProper
 //* Overlap한 인터랙션 찾기 */
 void UEIInteractionComponent::SearchInteraction()
 {
+	TArray<FHitResult> OutHits, AppendHitList;
+
 	//Owner가 캐릭터인 경우
 	if (EIInteractionOwnerType::Interaction_Doer == m_OwnerType)
 	{
@@ -89,15 +91,13 @@ void UEIInteractionComponent::SearchInteraction()
 		FVector StartTrace = Character->GetActorLocation() + FVector(0.f, 0.f, Radius - HalfHeight);
 		FVector EndTrace = Character->GetActorLocation() + FVector(0.f, 0.f, HalfHeight - Radius);
 
-		TArray<FHitResult> OutHits;
 		TArray<AActor*> IgnoreActorList;
 		IgnoreActorList.Add(GetOwner());
 
 		//충돌 체크
 		UKismetSystemLibrary::CapsuleTraceMultiByProfile(GetOuter(), StartTrace, EndTrace, Radius, HalfHeight, "Interaction", false, IgnoreActorList, EDrawDebugTrace::None, OutHits, true);
 
-		if (OutHits.Num() != 0)
-			UE_LOG(LogTemp, Warning, TEXT("Count : %d"), OutHits.Num());
+		AppendHitList.Append(OutHits);
 	}
 	//Owner가 Object인 경우
 	else if (EIInteractionOwnerType::Interaction_Object == m_OwnerType)
@@ -105,7 +105,7 @@ void UEIInteractionComponent::SearchInteraction()
 		//오브젝트가 주체인 경우 해당 내용 구현
 	}
 
-	//UpdateInteractionData(OutHits);
+	UpdateInteractionData(AppendHitList);
 }
 
 //* 인터랙션 정보 업데이트 */
