@@ -3,7 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "../Common/EICharacter.h"
+#include "Character/Common/EICharacter.h"
+#include "Interaction/Interface/EIInteraction.h"
 #include "EIGameCharacter.generated.h"
 
 /**
@@ -15,8 +16,8 @@ class UEIInteractionComponent;
 class UEICharacterMovementComponent;
 class UCharacterMovementComponent;
 
-UCLASS()
-class ELICEPROJECT_API AEIGameCharacter : public AEICharacter
+UCLASS(BlueprintType, Blueprintable)
+class ELICEPROJECT_API AEIGameCharacter : public AEICharacter, public IEIInteraction
 {
 	GENERATED_BODY()
 	
@@ -32,6 +33,9 @@ public:
 	// Get /
 	//FORCEINLINE UCharacterMovementComponent* GetCharacterMovementComponent() { return GetMovementComponent(); }
 	//FORCEINLINE AEIPlayerController* GetPlayerController() { return m_PlayerController; }
+
+protected:
+	void InitCharacter();
 
 protected:
 	//AEIPlayerController* m_PlayerController;

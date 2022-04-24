@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Interaction/Actor/InteractionBaseActor.h"
+#include "Interaction/Actor/EIInteractionBaseActor.h"
 #include "EIInteractionPuzzle.generated.h"
 
 /**
@@ -13,7 +13,7 @@
 class UBoxComponent;
 
 UCLASS()
-class ELICEPROJECT_API AEIInteractionPuzzle : public AInteractionBaseActor
+class ELICEPROJECT_API AEIInteractionPuzzle : public AEIInteractionBaseActor
 {
 	GENERATED_BODY()
 
@@ -23,9 +23,6 @@ public:
 protected:
 	virtual void BeginPlay();
 	virtual void Tick(float DeltaTime);
-
-	UFUNCTION()
-	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

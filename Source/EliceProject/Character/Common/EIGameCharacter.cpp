@@ -21,6 +21,8 @@ AEIGameCharacter::AEIGameCharacter()
 void AEIGameCharacter::BeginPlay()
 {
     Super::BeginPlay();
+
+	InitCharacter();
 	//m_PlayerController = GetController();
 }
 
@@ -35,7 +37,15 @@ void AEIGameCharacter::Tick(float DeltaTime)
 //--------------------------Public_END--------------------------//
 
 //----------------------------Protected----------------------------//
+void AEIGameCharacter::InitCharacter()
+{
+	//Interaction
+	if (nullptr == m_InteractionComponent || false == m_InteractionComponent->IsValidLowLevel())
+		return;
 
+	m_InteractionComponent->SetInteractionOwnerType(EIInteractionOwnerType::Interaction_Doer);
+	m_InteractionComponent->SetInteractionObjectType(EIInteractionObjectType::Character);
+}
 //--------------------------Protected_END--------------------------//
 
 

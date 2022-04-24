@@ -14,6 +14,18 @@ enum class EIInteractionEventType : uint8
 };
 
 UENUM(BlueprintType)
+enum class EIInteractionStateType : uint8
+{
+    None,
+    BeginInteraction        UMETA(DisplayName = "인터랙션 진입"),
+    EnableInteraction       UMETA(DisplayName = "인터랙션 가능"),
+    DisableInteraction      UMETA(DisplayName = "인터랙션 불가능"),
+    StartInteraction        UMETA(DisplayName = "인터랙션 시작"),
+    RunningInteraction      UMETA(DisplayName = "인터랙션 실행 중"),
+    EndInteraction          UMETA(DisplayName = "인터랙션 종료"),
+};
+
+UENUM(BlueprintType)
 enum class EIInteractionOwnerType : uint8
 {
     None,
@@ -25,5 +37,6 @@ UENUM(BlueprintType)
 enum class EIInteractionObjectType : uint8
 {
     None,
+    Character        UMETA(DisplayName = "캐릭터"),
     Puzzle        UMETA(DisplayName = "퍼즐"),
 };

@@ -22,30 +22,34 @@ class ELICEPROJECT_API IEIInteraction
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	IEIInteraction();
+	IEIInteraction() {}
 
 public:
 	//인터랙션과 오버랩 여부
-	UFUNCTION(BlueprintNativeEvent)
-	virtual bool IsOverlapInteraction() = 0;
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	bool IsOverlapInteraction();
 
 	//인터랙션과 상호작용 가능 여부
-	UFUNCTION(BlueprintNativeEvent)
-	virtual bool IsEnableInteraction() = 0;
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	bool IsEnableInteraction();
 
 	//인터랙션 상태 갱신
-	UFUNCTION(BlueprintNativeEvent)
-	virtual void UpdateInteractionState() = 0;
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	void UpdateInteractionState();
+
+	//인터랙션 프로세스 실행
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	void Interaction_Process();
 
 	//인터랙션 영역 진입
-	UFUNCTION(BlueprintNativeEvent)
-	virtual void Interaction_BeginOverlap() = 0;
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	void Interaction_BeginOverlap();
 
 	//인터랙션 실행
-	UFUNCTION(BlueprintNativeEvent)
-	virtual void Interaction_Execute() = 0;
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	void Interaction_Execute();
 
 	//인터랙션 영역 빠져나옴
-	UFUNCTION(BlueprintNativeEvent)
-	virtual void Interaction_EndOverlap() = 0;
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	void Interaction_EndOverlap();
 };
