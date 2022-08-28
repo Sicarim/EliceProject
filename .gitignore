@@ -3,6 +3,6 @@ DerivedDataCache/
 Intermediate/
 Saved/
 Script/
-*.target
+.target
 
 *.sln
