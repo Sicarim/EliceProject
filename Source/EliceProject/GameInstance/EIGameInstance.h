@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
+#include "GameInstance/EIProcedureSystem.h"
+#include "Interaction/Interface/EIInteractionSystem.h"
+
 #include "EIGameInstance.generated.h"
 
 /**
@@ -11,6 +14,7 @@
  */
 
 class UEIInteractionSystem;
+class UEIProcedureSystem;
 
 UCLASS()
 class ELICEPROJECT_API UEIGameInstance : public UGameInstance
@@ -49,7 +53,8 @@ public:
 	virtual void Shutdown() override;
 
 protected:
-	UEIInteractionSystem* GetInteractionSystem();
+	UEIInteractionSystem* GetInteractionSystem() { return GetInstance<UEIInteractionSystem>(); }
+	UEIProcedureSystem* GetProcedureSystem() { return GetInstance<UEIProcedureSystem>(); }
 
 	void CreateInstance();
 

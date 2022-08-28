@@ -29,12 +29,32 @@ protected:
 	virtual void Tick(float DeltaTime) override;
 	//-------------------------------------------------------/
 
+#pragma region Interaction
 public:
+	// >> Get
+	FORCEINLINE UEIInteractionComponent* GetInteractionComponent() { return m_InteractionComponent; }
+	// <<
+
+	UFUNCTION(Server, Reliable)
+	void Server_ExecuteInteractionEvent(AActor* InInteractionCharacter, AActor* InInteractionActor, EIInteractionEventType InEventType);
+
+	UFUNCTION(Client, Reliable)
+	void Client_ExecuteInteractionEvent(AActor* InInteractionCharacter, AActor* InInteractionActor, EIInteractionEventType InEventType);
+
+	virtual void Interaction_CallEvent_Implementation(AActor* InActor, EIInteractionEventType InEventType) override;
+	virtual void Interaction_EventProcess_Implementation(AActor* InActor, EIInteractionEventType InEventType) override;
+	virtual bool IsEnableInteraction_Implementation(AActor* InActor, EIInteractionEventType InEventType) override;
+	virtual void Interaction_EventCompliete_Implementation(AActor* InActor, EIInteractionEventType InEventType) override;
+
+protected:
+	virtual void Interaction_BeginOverlap_Implementation(AActor* InActor) override;
+	virtual void Interaction_Execute_Implementation(AActor* InActor) override;
+	virtual void Interaction_EndOverlap_Implementation(AActor* InActor) override;
+
 	// Get /
 	//FORCEINLINE UCharacterMovementComponent* GetCharacterMovementComponent() { return GetMovementComponent(); }
 	//FORCEINLINE AEIPlayerController* GetPlayerController() { return m_PlayerController; }
-
-	FORCEINLINE UEIInteractionComponent* GetInteractionComponent() { return m_InteractionComponent; }
+#pragma endregion
 
 protected:
 	void InitCharacter();

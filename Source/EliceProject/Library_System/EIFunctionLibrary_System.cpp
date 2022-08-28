@@ -31,3 +31,15 @@ UEIInteractionSystem* UEIFunctionLibrary_System::GetInteractionSystem(UObject* W
     
     return GameInstance->GetInstance<UEIInteractionSystem>();
 }
+
+UEIProcedureSystem* UEIFunctionLibrary_System::GetProcedureSystem(UObject* WorldContextObject)
+{
+    if (nullptr == WorldContextObject)
+        return nullptr;
+
+    UEIGameInstance* GameInstance = GetGameInstance(WorldContextObject);
+    if (nullptr == GameInstance)
+        return nullptr;
+
+    return GameInstance->GetInstance<UEIProcedureSystem>();
+}

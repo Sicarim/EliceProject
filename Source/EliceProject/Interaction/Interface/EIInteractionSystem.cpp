@@ -23,28 +23,20 @@ void UEIInteractionSystem::AddInteraction(UEIInteractionComponent* InComponent)
     InteractionInfo.InteractionComponent = InComponent;
 
     m_InteractionList.Add(InteractionInfo);
-}
-
-void UEIInteractionSystem::DediTest()
-{
-    if (GetWorld()->GetNetMode() == NM_DedicatedServer)
+    
+    int32 Key = InComponent->GetInteractionKey();
+    if (Key != -1)
     {
-        UE_LOG(LogTemp, Warning, TEXT("NetMode :: Dedi  ListCount : %d"), m_InteractionList.Num());
-        //Server_InteractionListSync(m_InteractionList);
-        Client_InteractionListSync(m_InteractionList);
-        //NetMulticast_InteractionListSync(m_InteractionList);
-    }
-        
-    if (GetWorld()->GetNetMode() == NM_Client)
-    {
-        UE_LOG(LogTemp, Warning, TEXT("NetMode :: Client  ListCount : %d"), m_InteractionList.Num());
+        if (false == m_SpecialInteracrtion.Contains(Key))
+        {
+            m_SpecialInteracrtion.FindOrAdd(Key) = InComponent;
+        }
     }
 }
 
-void UEIInteractionSystem::Please()
+void UEIInteractionSystem::RemoveInteraction(UEIInteractionComponent* InComponent)
 {
-    if (GetWorld()->GetNetMode() == NM_Client)
-        UE_LOG(LogTemp, Warning, TEXT("NetMode :   ListCount : %d"), m_InteractionList.Num());
+    //To do
 }
 
 void UEIInteractionSystem::Server_InteractionListSync_Implementation(const TArray<FEIInteractionInfo>& InArray)

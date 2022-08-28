@@ -52,9 +52,9 @@ public:
 public:
 	//* Interaction Add */
 	void AddInteraction(UEIInteractionComponent* InComponent);
-	void DediTest();
 
-	void Please();
+	//* Interaction Remove */
+	void RemoveInteraction(UEIInteractionComponent* InComponent);
 
 	//* Interaction Dedi */
 	UFUNCTION(Server, Reliable)
@@ -87,6 +87,7 @@ private:
 protected:
 	//TMap<int32, UEIInteractionComponent*> m_InteractionList;
 	TArray<FEIInteractionInfo> m_InteractionList;
+	TMap<int32, UEIInteractionComponent*> m_SpecialInteracrtion;
 
 	TMap<EIInteractionObjectType, FBeginOverlapEvent> m_BeginOverlapList;
 	TMap<EIInteractionObjectType, FExecuteEvent> m_ExecuteList;

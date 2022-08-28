@@ -33,6 +33,9 @@ public:
 	//Get
 	//UCharacterMovementComponent* GetMovementComponent();
 
+protected:
+	
+
 private:
 	float m_ForceDeltaTime = 0.f;
 };

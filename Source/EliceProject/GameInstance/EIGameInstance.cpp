@@ -2,7 +2,7 @@
 
 #include "GameInstance/EIGameInstance.h"
 
-#include "Interaction/Interface/EIInteractionSystem.h"
+
 
 UEIGameInstance::UEIGameInstance()
 {
@@ -12,7 +12,6 @@ UEIGameInstance::UEIGameInstance()
 void UEIGameInstance::Init()
 {
     CreateInstance();
-    UE_LOG(LogTemp, Log, TEXT("NotifyActorBeginOverlap"));
 }
 
 void UEIGameInstance::StartGameInstance()
@@ -27,15 +26,13 @@ void UEIGameInstance::OnStart()
 
 void UEIGameInstance::UEIGameInstance::Shutdown()
 {
+    UE_LOG(LogTemp, Warning, TEXT("Shut Down"));
 
-}
-
-UEIInteractionSystem* UEIGameInstance::GetInteractionSystem()
-{
-    return GetInstance<UEIInteractionSystem>();
+    m_Instance.Empty();
 }
 
 void UEIGameInstance::CreateInstance()
 {
     AddInstance<UEIInteractionSystem>(NewObject<UEIInteractionSystem>(this));
+    AddInstance<UEIProcedureSystem>(NewObject<UEIProcedureSystem>(this));
 }

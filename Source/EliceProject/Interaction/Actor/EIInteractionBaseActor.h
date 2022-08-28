@@ -10,7 +10,7 @@
 class UEIInteractionComponent;
 
 /**
- * TO DO : 기본이 되는 Interaction
+ * 기본이 되는 Interaction
  */
 
 UCLASS(BlueprintType, Blueprintable)
@@ -25,17 +25,30 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason);
 	
 public:
-	FORCEINLINE UEIInteractionComponent* GetInteractionComponent() { return m_InteractionComponent; }
+	// >> Get
+	FORCEINLINE virtual UEIInteractionComponent* GetInteractionComponent() { return InteractionComponent; }
+	// <<
 
+	virtual void Interaction_CallEvent_Implementation(AActor* InActor, EIInteractionEventType InEventType);
+	virtual void Interaction_EventProcess_Implementation(AActor* InActor, EIInteractionEventType InEventType);
+	virtual bool IsEnableInteraction_Implementation(AActor* InActor, EIInteractionEventType InEventType);
+	virtual void Interaction_EventCompliete_Implementation(AActor* InActor, EIInteractionEventType InEventType) override;
 
 protected:
+	UFUNCTION(Client, Reliable)
+	void Client_ExecuteEvent(AActor* InInteractionCharacter, AActor* InInteractionActor, EIInteractionEventType InEventType);
+
 	void InitInteraction();
-	void IsEnableInteraction_Implimatation();
+	virtual void Interaction_BeginOverlap_Implementation(AActor* InActor) override;
+	virtual void Interaction_Execute_Implementation(AActor* InActor) override;
+	virtual void Interaction_EndOverlap_Implementation(AActor* InActor) override;
+	virtual void Interaction_LinkEvent_Implementation(bool InActive) override;
 
 protected:
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "InteractionComponent", DisplayName = "InteractionComponent")
-	UEIInteractionComponent* m_InteractionComponent;
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	UEIInteractionComponent* InteractionComponent;
 
 };
