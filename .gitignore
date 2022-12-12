@@ -6,3 +6,20 @@ Script/
 
 *.sln
 *.target
+Binaries/Win64/EliceProjectEditor-Win64-DebugGame.target
+Binaries/Win64/UE4Editor-EliceProject-Win64-DebugGame.dll
+Binaries/Win64/UE4Editor-EliceProject-Win64-DebugGame.pdb
+Content/Contents/Level/MainLevel/Main_01_BuiltData.uasset
+Content/Contents/Level/TestLevel/ToonTestLevel_BuiltData.uasset
+Content/LowPolyMedievalConstructions/Maps/Map_1_BuiltData.uasset
+Content/LowPolyMedievalConstructions/Maps/Map_2_BuiltData.uasset
+Content/LowPolyMedievalConstructions/Maps/Map_3_BuiltData.uasset
+Content/LowPolyMedievalConstructions/Maps/Map_4_Top-Down_BuiltData.uasset
+Content/LowPolyMedievalConstructions/Maps/Map_5_Top-Down_BuiltData.uasset
+Content/LowPolyMedievalConstructions/Maps/Map_6_Top-Down_BuiltData.uasset
+Content/LowPolyMedievalConstructions/Maps/Map_7_Top-Down_BuiltData.uasset
+Content/LowPolyMedievalConstructions/Maps/Map_8_BuiltData.uasset
+Content/LowPolyMedievalConstructions/Maps/Map_9_BuiltData.uasset
+Content/LowPolyMedievalConstructions/Maps/Overview_Map_BuiltData.uasset
+Content/LowpolyStyle/Asia/Demoscenes/Demoscene_BuiltData.uasset
+Content/SpaceshipInterior/Maps/Demonstration_BuiltData.uasset
