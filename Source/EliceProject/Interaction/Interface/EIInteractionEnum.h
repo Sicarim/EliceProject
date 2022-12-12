@@ -49,3 +49,11 @@ enum class EIInteractionObjectType : uint8
     Character     UMETA(DisplayName = "캐릭터"),
     Puzzle        UMETA(DisplayName = "퍼즐"),
 };
+
+//SpawnType
+UENUM(BlueprintType)
+enum class EISpawnVolumeType : uint8
+{
+    None,
+    Monster       UMETA(DisplayName = "몬스터 타입"),
+};

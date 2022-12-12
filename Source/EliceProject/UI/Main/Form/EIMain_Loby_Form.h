@@ -16,4 +16,7 @@ class ELICEPROJECT_API UEIMain_Loby_Form : public UUserWidget
 	
 public:
 	UEIMain_Loby_Form(const FObjectInitializer& ObjectInitializer);
+
+//private:
+	//TArray<
 };

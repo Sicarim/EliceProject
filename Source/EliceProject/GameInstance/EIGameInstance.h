@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
+#include "GameInstance/EIGameUISystem.h"
 #include "GameInstance/EIProcedureSystem.h"
+#include "GameInstance/EILevelSystem.h"
 #include "Interaction/Interface/EIInteractionSystem.h"
 
 #include "EIGameInstance.generated.h"
@@ -13,8 +15,10 @@
  * 
  */
 
-class UEIInteractionSystem;
+class UEILevelSystem;
+class UEIGameUISystem;
 class UEIProcedureSystem;
+class UEIInteractionSystem;
 
 UCLASS()
 class ELICEPROJECT_API UEIGameInstance : public UGameInstance
@@ -55,6 +59,8 @@ public:
 protected:
 	UEIInteractionSystem* GetInteractionSystem() { return GetInstance<UEIInteractionSystem>(); }
 	UEIProcedureSystem* GetProcedureSystem() { return GetInstance<UEIProcedureSystem>(); }
+	UEIGameUISystem* GetGameUISystem() { return GetInstance<UEIGameUISystem>(); }
+	UEILevelSystem* GetLevelSystem() { return GetInstance<UEILevelSystem>(); }
 
 	void CreateInstance();
 
