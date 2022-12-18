@@ -9,7 +9,7 @@
 
 AEISpawnVolume::AEISpawnVolume()
 {
-    InteractionComponent->SetInteractionObjectType(EIInteractionObjectType::MonsterSpawnVolume);
+
 }
 
 void AEISpawnVolume::BeginPlay()

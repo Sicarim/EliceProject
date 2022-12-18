@@ -46,8 +46,9 @@ UENUM(BlueprintType)
 enum class EIInteractionObjectType : uint8
 {
     None,
-    Character     UMETA(DisplayName = "캐릭터"),
-    Puzzle        UMETA(DisplayName = "퍼즐"),
+    Character               UMETA(DisplayName = "캐릭터"),
+    Puzzle                  UMETA(DisplayName = "퍼즐"),
+    MonsterSpawnVolume      UMETA(DisplayName = "몬스터 스폰볼륨"),
 };
 
 //SpawnType

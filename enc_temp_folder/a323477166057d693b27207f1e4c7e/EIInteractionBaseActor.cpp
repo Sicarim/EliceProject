@@ -26,7 +26,6 @@ void AEIInteractionBaseActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
-
 //----------------------------Public----------------------------//
 //인터랙션 호출 실행
 void AEIInteractionBaseActor::Interaction_CallEvent_Implementation(AActor* InActor, EIInteractionEventType InEventType)
