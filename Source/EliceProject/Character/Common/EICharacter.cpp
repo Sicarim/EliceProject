@@ -3,6 +3,8 @@
 #include "../Common/EICharacter.h"
 
 #include "Net/UnrealNetwork.h"
+
+#include "Components/InputComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 AEICharacter::AEICharacter()

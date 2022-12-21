@@ -17,7 +17,4 @@ class ELICEPROJECT_API UEISpawnMonsterData : public UEISpawnBaseData
 public:
 	UEISpawnMonsterData();
 
-protected:
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, meta = (Category = "Spawn Monster Data", DisplayName = "Spawn Execute Type"))
-	int32 m_test = 0;
 };

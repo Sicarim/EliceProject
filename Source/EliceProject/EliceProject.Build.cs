@@ -11,6 +11,6 @@ public class EliceProject : ModuleRules
 		PrivateIncludePaths.Add("EliceProject");
 		PublicIncludePaths.Add("EliceProject");
 
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay", "UnrealEd", "NavigationSystem" });
 	}
 }

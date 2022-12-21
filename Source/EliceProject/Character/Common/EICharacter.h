@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "EICharacter.generated.h"
 
+class UInputComponent;
+
 UCLASS()
 class ELICEPROJECT_API AEICharacter : public ACharacter
 {

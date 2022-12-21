@@ -15,6 +15,10 @@ enum class EISpawnVolumeType : uint8;
 class UEISpawnBaseData;
 class UEISpawnBaseBehavior;
 
+class USphereComponent;
+class USceneComponent;
+class UEITargetComponent;
+
 UENUM(BlueprintType)
 enum class EISpawnExecuteType : uint8
 {
@@ -54,13 +58,23 @@ protected:
 	UPROPERTY()
 	UEISpawnBaseBehavior* m_SpawnBehavior = nullptr;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, meta = (Category = "SpawnVolume Setting"))
+	USphereComponent* m_SphereCollision = nullptr;
+
 #if WITH_EDITOR
+public:
 	virtual void PostEditChangeProperty(struct FPropertyChangedEvent& PropertyChangedEvent) override;
 	virtual bool CanEditChange(const FProperty* InProperty) const override;
 
 	void CreateSpawnInfo();
+	void UpdateSpawnDataInfo();
+	void CreateTargetPoint();
+	void ReleaseTargetPoint();
+
+	void UpdateTargetPointPosition(UEITargetComponent* InTargetComponent);
 #endif //WITH_EDITOR
 
 #if WITH_EDITORONLY_DATA
+	
 #endif //WITH_EDITORONLY_DATA
 };

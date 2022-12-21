@@ -8,6 +8,7 @@
 #include "GameInstance/EIProcedureSystem.h"
 #include "GameInstance/EILevelSystem.h"
 #include "Interaction/Interface/EIInteractionSystem.h"
+#include "Table/EITable.h"
 
 #include "EIGameInstance.generated.h"
 
@@ -19,6 +20,7 @@ class UEILevelSystem;
 class UEIGameUISystem;
 class UEIProcedureSystem;
 class UEIInteractionSystem;
+class UEITable;
 
 UCLASS()
 class ELICEPROJECT_API UEIGameInstance : public UGameInstance
@@ -61,6 +63,7 @@ protected:
 	UEIProcedureSystem* GetProcedureSystem() { return GetInstance<UEIProcedureSystem>(); }
 	UEIGameUISystem* GetGameUISystem() { return GetInstance<UEIGameUISystem>(); }
 	UEILevelSystem* GetLevelSystem() { return GetInstance<UEILevelSystem>(); }
+	UEITable* GetTable() { return GetInstance<UEITable>(); }
 
 	void CreateInstance();
 

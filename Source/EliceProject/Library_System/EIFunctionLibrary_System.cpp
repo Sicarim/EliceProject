@@ -70,3 +70,15 @@ UEILevelSystem* UEIFunctionLibrary_System::GetLevelSystem(UObject* WorldContextO
 
     return GameInstance->GetInstance<UEILevelSystem>();
 }
+
+UEITable* UEIFunctionLibrary_System::GetTable(UObject* WorldContextObject)
+{
+    if (nullptr == WorldContextObject)
+        return nullptr;
+
+    UEIGameInstance* GameInstance = GetGameInstance(WorldContextObject);
+    if (nullptr == GameInstance)
+        return nullptr;
+
+    return GameInstance->GetInstance<UEITable>();
+}

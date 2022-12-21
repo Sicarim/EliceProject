@@ -14,6 +14,10 @@
 AEIGameCharacter::AEIGameCharacter()
 {
 	m_InteractionComponent = CreateDefaultSubobject<UEIInteractionComponent>(TEXT("CharacterInteractionComponent"));
+	if (m_InteractionComponent != nullptr)
+	{
+		m_InteractionComponent->SetInteractionOwnerType(EIInteractionOwnerType::Interaction_Doer);
+	}
 
 	//CharacterMovementComponent = CreateDefaultSubobject<UEICharacterMovementComponent>(TEXT("EICharacterMovementComponent"));
 	//if (nullptr != CharacterMovementComponent)

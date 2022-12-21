@@ -4,10 +4,14 @@
 
 #include "Character/Common/EIGameCharacter.h"
 
+#include "Components/SceneComponent.h"
 #include "Interaction/Component/EIInteractionComponent.h"
 
 AEIInteractionBaseActor::AEIInteractionBaseActor()
 {
+	USceneComponent* SceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("BaseSceneComponent"));
+	RootComponent = SceneComponent;
+
 	InteractionComponent = CreateDefaultSubobject<UEIInteractionComponent>(TEXT("InteractionComponent"));
 	if (nullptr != InteractionComponent)
 	{
