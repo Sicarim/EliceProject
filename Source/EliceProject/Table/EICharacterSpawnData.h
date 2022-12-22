@@ -22,6 +22,7 @@ struct FEICharacterSpawnData : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 fomation_index;
 
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 character_id_0;
 
@@ -29,7 +30,7 @@ struct FEICharacterSpawnData : public FTableRowBase
 	int32 slot_index_0;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FSoftObjectPath character_ai_0;
+	int32 Scale_0;
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -39,8 +40,7 @@ struct FEICharacterSpawnData : public FTableRowBase
 	int32 slot_index_1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FSoftObjectPath character_ai_1;
-
+	int32 Scale_1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 character_id_2;
@@ -49,7 +49,7 @@ struct FEICharacterSpawnData : public FTableRowBase
 	int32 slot_index_2;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FSoftObjectPath character_ai_2;
+	int32 Scale_2;
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -59,7 +59,7 @@ struct FEICharacterSpawnData : public FTableRowBase
 	int32 slot_index_3;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FSoftObjectPath character_ai_3;
+	int32 Scale_3;
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -69,7 +69,7 @@ struct FEICharacterSpawnData : public FTableRowBase
 	int32 slot_index_4;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FSoftObjectPath character_ai_4;
+	int32 Scale_4;
 
 public:
 	FEICharacterSpawnData()
@@ -79,22 +79,22 @@ public:
 
 		character_id_0 = 0;
 		slot_index_0 = 0;
-		character_ai_0 = nullptr;
-		
+		Scale_0 = 1000;
+
 		character_id_1 = 0;
 		slot_index_1 = 0;
-		character_ai_1 = nullptr;
+		Scale_1 = 1000;
 		
 		character_id_2 = 0;
 		slot_index_2 = 0;
-		character_ai_2 = nullptr;
+		Scale_2 = 1000;
 		
 		character_id_3 = 0;
 		slot_index_3 = 0;
-		character_ai_3 = nullptr;
+		Scale_3 = 1000;
 		
 		character_id_4 = 0;
 		slot_index_4 = 0;
-		character_ai_4 = nullptr;
+		Scale_4 = 1000;
 	}
 };

@@ -8,6 +8,29 @@
 
 class UEITargetComponent;
 
+class AEIGameCharacter;
+
+//* Squad Data Info */
+USTRUCT(BlueprintType)
+struct FEISquadDataInfo
+{
+	GENERATED_BODY()
+
+public:
+	int32 m_CharacterDataID;
+
+	UPROPERTY()
+	AEIGameCharacter* m_GameCharacter;
+
+public:
+	FEISquadDataInfo()
+	{
+		m_CharacterDataID = 0;
+		m_GameCharacter = nullptr;
+	}
+};
+
+//* SpawnData Info */
 USTRUCT(BlueprintType)
 struct FEISpawnDataInfo
 {
@@ -16,11 +39,8 @@ struct FEISpawnDataInfo
 public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, meta = (DisplayName = "Spawn Data ID", ToolTip = "스폰 데이터 ID"))
 	int32 m_SpawnDataID;
-	
-	UPROPERTY()
-	FVector m_SpawnPosition;
 
-	UPROPERTY()
+	FVector m_SpawnPosition;
 	float m_Yaw;
 
 #if WITH_EDITOR

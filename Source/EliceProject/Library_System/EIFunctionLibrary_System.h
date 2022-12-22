@@ -18,7 +18,7 @@ class UEIProcedureSystem;
 class UEIInteractionSystem;
 class UEITable;
 
-UCLASS(BlueprintType)
+UCLASS(BlueprintType, Blueprintable)
 class ELICEPROJECT_API UEIFunctionLibrary_System : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()

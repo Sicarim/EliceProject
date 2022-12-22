@@ -10,9 +10,13 @@
  * SpawnVolume Behavior 부모 클래스
  */
 
-class AEISpawnVolume;
+struct FEICharacterSpawnData;
+struct FEIFormationData;
 
 class UEISpawnBaseData;
+
+class AEISpawnVolume;
+class AEIGameCharacter;
 
 UCLASS()
 class ELICEPROJECT_API UEISpawnBaseBehavior : public UObject
@@ -26,6 +30,11 @@ public:
 	virtual void InitSpawnData(AEISpawnVolume* InSpawnVolume, UEISpawnBaseData* InSpawnData);
 	virtual bool OnStartSpawn() { return true; }
 
-private:
+protected:
+	void GetTableDataAt(int32 InSpawnDataId, FEICharacterSpawnData& OutSpawnData, FEIFormationData& OutFormationData);
+	FTransform OnMakeSpawnTransform();
+	AEIGameCharacter* CreateSpawnActor();
+	
+protected:
 	AEISpawnVolume* m_OwnerSpawnVolume = nullptr;
 };

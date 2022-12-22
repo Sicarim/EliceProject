@@ -14,6 +14,8 @@ enum class EISpawnVolumeType : uint8;
 
 class UEISpawnBaseData;
 class UEISpawnBaseBehavior;
+class UEISquad;
+class AEIGameCharacter;
 
 class USphereComponent;
 class USceneComponent;
@@ -45,6 +47,12 @@ protected:
 public:
 	void StartSpawn();
 
+	//Get
+	FORCEINLINE TArray<UEISquad*> GetActorSquadList() { return m_ActiveSquadList; }
+
+	//Set
+	FORCEINLINE void SetActorSquadList(UEISquad* InSquad) { m_ActiveSquadList.Add(InSquad); }
+
 protected:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, meta = (DisplayName = "Spawn Type"))
 	EISpawnVolumeType m_SpawnType = EISpawnVolumeType::None;
@@ -60,6 +68,10 @@ protected:
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, meta = (Category = "SpawnVolume Setting"))
 	USphereComponent* m_SphereCollision = nullptr;
+
+	UPROPERTY()
+	TArray<UEISquad*> m_ActiveSquadList;
+	
 
 #if WITH_EDITOR
 public:

@@ -186,6 +186,14 @@ void AEIGameCharacter::Interaction_EndOverlap_Implementation(AActor* InActor)
 //----------------------------Protected----------------------------//
 void AEIGameCharacter::InitCharacter()
 {
+	if (GetMesh() != nullptr && GetMesh()->IsValidLowLevel() == true)
+	{
+		//Mesh Collision off
+		GetMesh()->SetCollisionProfileName(TEXT("NoCollision"));
+		//Ä«Å÷ ·»´õ¸µ On
+		GetMesh()->SetRenderCustomDepth(true);
+	}
+
 	//Interaction
 	if (nullptr == m_InteractionComponent || false == m_InteractionComponent->IsValidLowLevel())
 		return;

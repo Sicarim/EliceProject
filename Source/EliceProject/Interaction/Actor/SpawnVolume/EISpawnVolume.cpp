@@ -51,9 +51,26 @@ void AEISpawnVolume::Tick(float DeltaTime)
 //* 스폰 데이터 세팅 */
 bool AEISpawnVolume::InitSpawnData()
 {
-    bool InitSuccess = false;
+    if (m_SpawnBehavior == nullptr || m_SpawnBehavior->IsValidLowLevel() == false)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("[AEISpawnVolume] SpawnBehavior is nullptr"));
+        return false;
+    }
+    if (m_SpawnData == nullptr || m_SpawnData->IsValidLowLevel() == false)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("[AEISpawnVolume] m_SpawnData is nullptr"));
+        return false;
+    }
 
-    return InitSuccess;
+    for (int32 i = 0; i < m_SpawnData->m_SpawnDataInfoList.Num(); i++)
+    {
+        m_SpawnData->m_SpawnDataInfoList[i].m_Yaw = m_SpawnData->m_SpawnDataInfoList[i].m_TargetPoint->GetRelativeRotation().Yaw;
+        m_SpawnData->m_SpawnDataInfoList[i].m_SpawnPosition = m_SpawnData->m_SpawnDataInfoList[i].m_TargetPoint->GetComponentLocation();
+    }
+
+    m_SpawnBehavior->InitSpawnData(this, m_SpawnData);
+
+    return true;
 }
 
 //* 스폰 시작 */
@@ -221,23 +238,23 @@ void AEISpawnVolume::UpdateTargetPointPosition(UEITargetComponent* InTargetCompo
     if (m_SpawnData == nullptr || m_SpawnData->IsValidLowLevel() == false)
         UE_LOG(LogTemp, Error, TEXT("[AEISpawnVolume] SpawnData is nullptr"));
 
-    for (FEISpawnDataInfo& SpawnData : m_SpawnData->m_SpawnDataInfoList)
+    for (int32 i = 0; i < m_SpawnData->m_SpawnDataInfoList.Num(); i++)
     {
-        if (SpawnData.m_TargetPoint == InTargetComponent)
+        if (m_SpawnData->m_SpawnDataInfoList[i].m_TargetPoint == InTargetComponent)
         {
-            SpawnData.m_Yaw = InTargetComponent->GetComponentRotation().Yaw;
-            SpawnData.m_SpawnPosition = InTargetComponent->GetComponentLocation();
+            m_SpawnData->m_SpawnDataInfoList[i].m_Yaw = InTargetComponent->GetComponentRotation().Yaw;
+            m_SpawnData->m_SpawnDataInfoList[i].m_SpawnPosition = InTargetComponent->GetComponentLocation();
 
             //TargetPoint위치를 Nav기준으로 스냅 시킨다.
             UNavigationSystemV1* NavSystem = UNavigationSystemV1::GetNavigationSystem(GetWorld());
             if (NavSystem != nullptr && NavSystem->IsValidLowLevel() == true)
             {
                 FNavLocation NavLocation;
-                bool IsSuccess = NavSystem->ProjectPointToNavigation(SpawnData.m_SpawnPosition, NavLocation);
+                bool IsSuccess = NavSystem->ProjectPointToNavigation(m_SpawnData->m_SpawnDataInfoList[i].m_SpawnPosition, NavLocation);
                 if (IsSuccess == true)
                 {
-                    SpawnData.m_SpawnPosition = NavLocation.Location + FVector(0.f, 0.f, 10.f);
-                    SpawnData.m_TargetPoint->SetWorldLocation(SpawnData.m_SpawnPosition);
+                    m_SpawnData->m_SpawnDataInfoList[i].m_SpawnPosition = NavLocation.Location + FVector(0.f, 0.f, 10.f);
+                    m_SpawnData->m_SpawnDataInfoList[i].m_TargetPoint->SetWorldLocation(m_SpawnData->m_SpawnDataInfoList[i].m_SpawnPosition);
                 }
             }
             break;
