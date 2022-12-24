@@ -17,7 +17,7 @@ class ELICEPROJECT_API UEIProcedure_PersistentLevel : public UEIProcedure_Base
 public:
 	UEIProcedure_PersistentLevel();
 
-protected:
+public:
 	virtual void InitProcedure(UObject* WorldContextObject) override;
 	virtual void OnProcedureExecute(UObject* WorldContextObject) override;
 };

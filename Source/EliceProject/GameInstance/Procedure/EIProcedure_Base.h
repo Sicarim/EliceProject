@@ -17,7 +17,7 @@ class ELICEPROJECT_API UEIProcedure_Base : public UObject
 public:
 	UEIProcedure_Base();
 
-protected:
+public:
 	virtual void InitProcedure(UObject* WorldContextObject);
 	virtual void OnProcedureExecute(UObject* WorldContextObject);
 };
