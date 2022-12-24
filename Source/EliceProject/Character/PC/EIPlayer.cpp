@@ -27,6 +27,11 @@ AEIPlayer::AEIPlayer()
 	m_ArmLengthTo = 0.0f;
 }
 
+void AEIPlayer::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+}
+
 void AEIPlayer::BeginPlay()
 {
     Super::BeginPlay();
@@ -41,6 +46,11 @@ void AEIPlayer::BeginPlay()
 void AEIPlayer::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
+}
+
+void AEIPlayer::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
 //----------------------------Public----------------------------//

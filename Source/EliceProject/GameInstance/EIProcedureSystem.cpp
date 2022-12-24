@@ -37,8 +37,6 @@ void UEIProcedureSystem::InitData(UObject* WorldContextObject)
 
 void UEIProcedureSystem::OnProcedureExecute(UObject* WorldContextObject)
 {
-	TArray<UEIProcedure_Base*> m_ProcedureOrederList;
-
 	for (UEIProcedure_Base* Procedure : m_ProcedureOrederList)
 	{
 		if (Procedure == nullptr || Procedure->IsValidLowLevel() == false)
