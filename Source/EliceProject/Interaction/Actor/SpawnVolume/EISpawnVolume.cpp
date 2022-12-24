@@ -2,6 +2,7 @@
 
 #include "Interaction/Actor/SpawnVolume/EISpawnVolume.h"
 
+#include "Interaction/Interface/EIInteractionEnum.h"
 #include "Interaction/Actor/SpawnVolume/EISpawnInfoFactory.h"
 
 #include "Components/SphereComponent.h"

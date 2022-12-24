@@ -20,14 +20,14 @@ struct FEICharacterSpawnData : public FTableRowBase
 	int32 spawn_id;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FText memo;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 fomation_index;
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 character_id_0;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 slot_index_0;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 Scale_0;
@@ -37,16 +37,11 @@ struct FEICharacterSpawnData : public FTableRowBase
 	int32 character_id_1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 slot_index_1;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 Scale_1;
+
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 character_id_2;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 slot_index_2;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 Scale_2;
@@ -56,17 +51,11 @@ struct FEICharacterSpawnData : public FTableRowBase
 	int32 character_id_3;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 slot_index_3;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 Scale_3;
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 character_id_4;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 slot_index_4;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 Scale_4;
@@ -75,26 +64,22 @@ public:
 	FEICharacterSpawnData()
 	{
 		spawn_id = 0;
+		memo = FText();
 		fomation_index = 0;
 
 		character_id_0 = 0;
-		slot_index_0 = 0;
 		Scale_0 = 1000;
 
 		character_id_1 = 0;
-		slot_index_1 = 0;
 		Scale_1 = 1000;
 		
 		character_id_2 = 0;
-		slot_index_2 = 0;
 		Scale_2 = 1000;
 		
 		character_id_3 = 0;
-		slot_index_3 = 0;
 		Scale_3 = 1000;
 		
 		character_id_4 = 0;
-		slot_index_4 = 0;
 		Scale_4 = 1000;
 	}
 };

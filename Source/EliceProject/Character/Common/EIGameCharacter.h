@@ -29,6 +29,9 @@ protected:
 	virtual void Tick(float DeltaTime) override;
 	//-------------------------------------------------------/
 
+public:
+	void SetActorNavLocation(FVector InLocation);
+
 #pragma region Interaction
 public:
 	// >> Get

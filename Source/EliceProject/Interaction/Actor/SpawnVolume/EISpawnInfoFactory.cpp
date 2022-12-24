@@ -3,6 +3,7 @@
 #include "Interaction/Actor/SpawnVolume/EISpawnInfoFactory.h"
 
 #include "Table/EIBattleDefine.h"
+#include "Interaction/Interface/EIInteractionEnum.h"
 
 #include "Interaction/Actor/SpawnVolume/EISpawnVolume.h"
 
@@ -13,7 +14,6 @@
 #include "Interaction/Actor/SpawnVolume/SpawnData/EISpawnMonsterData.h"
 
 #include "Component/Spawn/EITargetComponent.h"
-
 
 //* SpawnData »ý¼º */
 UEISpawnBaseData* UEISpawnInfoFactory::CreateSpawnData(EISpawnVolumeType InSpawnVolumeType, AEISpawnVolume* InOwner)

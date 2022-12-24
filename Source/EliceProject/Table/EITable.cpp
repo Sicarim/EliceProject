@@ -14,6 +14,9 @@
 //Formation Data
 #include "Table/EIFormationData.h"
 
+//Level Data
+#include "Table/EILevelData.h"
+
 UEITable::UEITable()
 {
 	InitTableData();
@@ -35,6 +38,11 @@ void UEITable::InitTableData()
 	FString FormationDataPath = TEXT("/Game/Contents/Table/FormationData.FormationData");
 	static ConstructorHelpers::FObjectFinder<UDataTable> FormationData(*FormationDataPath);
 	m_FormationData = FormationData.Object;
+
+	//Level Data
+	FString LevelDataPath = TEXT("/Game/Contents/Table/LevelData.LevelData");
+	static ConstructorHelpers::FObjectFinder<UDataTable> LeveData(*LevelDataPath);
+	m_LevelData = LeveData.Object;
 }
 
 //* Monster SpawnData */
@@ -68,9 +76,9 @@ bool UEITable::GetSpawnDataAt(int32 InDataId, FEICharacterSpawnData& OutSpawnDat
 	}
 
 	FEICharacterSpawnData* SpawnData = m_CharacterSpawnData->FindRow<FEICharacterSpawnData>(*FString::FromInt(InDataId), TEXT(""));
-	if (m_CharacterSpawnData == nullptr)
+	if (SpawnData == nullptr)
 	{
-		UE_LOG(LogTemp, Error, TEXT("[EITable] m_CharacterSpawnData FindRow Failed"));
+		UE_LOG(LogTemp, Error, TEXT("[EITable] SpawnData FindRow Failed"));
 		return false;
 	}
 
@@ -89,13 +97,33 @@ bool UEITable::GetFormationDataAt(int32 InDataId, FEIFormationData& OutFormation
 	}
 
 	FEIFormationData* FormationData = m_FormationData->FindRow<FEIFormationData>(*FString::FromInt(InDataId), TEXT(""));
-	if (m_FormationData == nullptr)
+	if (FormationData == nullptr)
 	{
-		UE_LOG(LogTemp, Error, TEXT("[EITable] m_CharacterSpawnData FindRow Failed"));
+		UE_LOG(LogTemp, Error, TEXT("[EITable] FormationData FindRow Failed"));
 		return false;
 	}
 
 	OutFormationDataAt = *FormationData;
+
+	return true;
+}
+
+bool UEITable::GetLevelDataAt(int32 InDataId, FEILevelData& OutLevelDataAt)
+{
+	if (m_LevelData == nullptr)
+	{
+		UE_LOG(LogTemp, Error, TEXT("[EITable] m_LevelData is nullptr"));
+		return false;
+	}
+
+	FEILevelData* LevelData = m_LevelData->FindRow<FEILevelData>(*FString::FromInt(InDataId), TEXT(""));
+	if (LevelData == nullptr)
+	{
+		UE_LOG(LogTemp, Error, TEXT("[EITable] LevelData FindRow Failed"));
+		return false;
+	}
+
+	OutLevelDataAt = *LevelData;
 
 	return true;
 }

@@ -19,6 +19,9 @@ struct FEIMonsterData : public FTableRowBase
 	int32 Character_id;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FText memo;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 max_hp;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -31,6 +34,7 @@ public:
 	FEIMonsterData()
 	{
 		Character_id = 0;
+		memo = FText();
 		max_hp = 1000;
 		bp_path = nullptr;
 		character_ai = nullptr;

@@ -60,3 +60,24 @@ public:
 #endif //WITH_EDITOR
 	}
 };
+
+//* SpawnData Info */
+USTRUCT(BlueprintType)
+struct FEICreatureDataInfo
+{
+	GENERATED_BODY()
+
+public:
+	int32 m_SpawnDataID;
+	int32 m_SlotIndex;
+	int32 m_Scale;
+	FTransform m_SpawnTransform;
+
+public:
+	FEICreatureDataInfo()
+	{
+		m_SpawnDataID = 0;
+		m_SlotIndex = 0;
+		m_Scale = 0;
+	}
+};

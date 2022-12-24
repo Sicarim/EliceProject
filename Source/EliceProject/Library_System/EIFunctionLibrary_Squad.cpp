@@ -92,8 +92,14 @@ AEIGameCharacter* UEIFunctionLibrary_Squad::Create_GameCharacter(UObject* WorldC
 		return nullptr;
 	}
 
-	GameCharacter->SetActorLocation(InTransform.GetLocation());
-	GameCharacter->SetActorScale3D(InTransform.GetScale3D());
+	if (GameCharacter->GetMesh() != nullptr && GameCharacter->GetMesh()->IsValidLowLevel() == true)
+	{
+		FVector Scale = GameCharacter->GetActorScale3D();
+		FVector ResultScale = FVector(Scale.X * InTransform.GetScale3D().X, Scale.Y * InTransform.GetScale3D().Y, Scale.Z * InTransform.GetScale3D().Z);
+		GameCharacter->SetActorScale3D(ResultScale);
+	}
+	GameCharacter->SetActorRotation(InTransform.GetRotation());
+	GameCharacter->SetActorNavLocation(InTransform.GetLocation());
 
 	return GameCharacter;
 }

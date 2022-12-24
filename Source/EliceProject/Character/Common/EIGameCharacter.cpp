@@ -7,7 +7,8 @@
 #include "Interaction/Interface/EIInteractionEnum.h"
 
 #include "Interaction/Component/EIInteractionComponent.h"
-#include "../../Component/Character/EICharacterMovementComponent.h"
+#include "Component/Character/EICharacterMovementComponent.h"
+#include "Components/CapsuleComponent.h"
 
 #include "Interaction/Actor/EIInteractionBaseActor.h"
 
@@ -39,6 +40,16 @@ void AEIGameCharacter::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 
+}
+
+//* 캐릭터 위치를 Set할때, 캡슐 크기만큼 올린다. */
+void AEIGameCharacter::SetActorNavLocation(FVector InLocation)
+{
+	FVector OnrigineLocation = InLocation;
+	float HalfHeight = GetCapsuleComponent()->GetScaledCapsuleHalfHeight();
+	OnrigineLocation += FVector(0.f, 0.f, HalfHeight);
+
+	SetActorLocation(OnrigineLocation);
 }
 
 //* 인터랙션 서버 실행 */

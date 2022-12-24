@@ -55,6 +55,7 @@ public:
 	FEIFormationData()
 	{
 		formation_id = 0;
+		memo = FText();
 		interval = 0;
 
 		slot_0 = false;

@@ -4,14 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "Table/EIBattleDefine.h"
 #include "EISpawnBaseBehavior.generated.h"
 
 /**
  * SpawnVolume Behavior 부모 클래스
  */
 
-struct FEICharacterSpawnData;
 struct FEIFormationData;
+struct FEICharacterSpawnData;
 
 class UEISpawnBaseData;
 
@@ -31,9 +32,12 @@ public:
 	virtual bool OnStartSpawn() { return true; }
 
 protected:
-	void GetTableDataAt(int32 InSpawnDataId, FEICharacterSpawnData& OutSpawnData, FEIFormationData& OutFormationData);
-	FTransform OnMakeSpawnTransform();
-	AEIGameCharacter* CreateSpawnActor();
+	bool GetTableDataAt(int32 InSpawnDataId, FEICharacterSpawnData& OutSpawnData, FEIFormationData& OutFormationData);
+	void GetSelectCreatureData(TArray<FEICreatureDataInfo>& OutCreateDataList, const FEICharacterSpawnData InSpawnData, const FEIFormationData InFormationData);
+	TArray<int32> GetSlotIndex(const FEIFormationData InFormationData);
+
+	FTransform OnMakeSpawnTransform(FVector InSpawnPosition, float Yaw, float InInterval, FEICreatureDataInfo& InCreatureData);
+	AEIGameCharacter* CreateSpawnActor(FEICreatureDataInfo InCreatureData);
 	
 protected:
 	AEISpawnVolume* m_OwnerSpawnVolume = nullptr;

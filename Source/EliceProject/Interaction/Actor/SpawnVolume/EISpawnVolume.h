@@ -29,7 +29,7 @@ enum class EISpawnExecuteType : uint8
 	Custom,
 };
 
-UCLASS(Blueprintable, HideCategories = (EIInteractionBaseActor))
+UCLASS(Blueprintable, Blueprintable, HideCategories = (EIInteractionBaseActor))
 class ELICEPROJECT_API AEISpawnVolume : public AEIInteractionBaseActor
 {
 	GENERATED_BODY()

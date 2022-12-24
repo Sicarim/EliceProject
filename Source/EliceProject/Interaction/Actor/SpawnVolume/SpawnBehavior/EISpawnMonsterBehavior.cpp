@@ -3,6 +3,8 @@
 #include "Interaction/Actor/SpawnVolume/SpawnBehavior/EISpawnMonsterBehavior.h"
 
 #include "Table/EIBattleDefine.h"
+#include "Table/EIFormationData.h"
+#include "Table/EICharacterSpawnData.h"
 
 #include "Library_System/EIFunctionLibrary_Squad.h"
 
@@ -45,12 +47,39 @@ bool UEISpawnMonsterBehavior::OnStartSpawn()
 	//캐릭터 생성.
 	for (FEISpawnDataInfo& SpawnData : m_MonsterSpawnData->m_SpawnDataInfoList)
 	{
-		FTransform SpawnTransform = OnMakeSpawnTransform();
+		FEISquadDataInfo SquadDataInfo;
+		FEIFormationData FormationData;
+		FEICharacterSpawnData CharacterSpawnData;
+
+		if (GetTableDataAt(SpawnData.m_SpawnDataID, CharacterSpawnData, FormationData) == false)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("[UEISpawnMonsterBehavior] SpawnTable is Failed"));
+			return false;
+		}
+
+		TArray<FEICreatureDataInfo> CreateDataList;
+		GetSelectCreatureData(CreateDataList, CharacterSpawnData, FormationData);
+
+		for (FEICreatureDataInfo& CreatureData : CreateDataList)
+		{
+			OnMakeSpawnTransform(SpawnData.m_SpawnPosition, SpawnData.m_Yaw, FormationData.interval, CreatureData);
+
+			AEIGameCharacter* SpawnActor = CreateSpawnActor(CreatureData);
+			if (SpawnActor == nullptr || SpawnActor->IsValidLowLevel() == false)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("[UEISpawnMonsterBehavior] SpawnActor is nullptr"));
+				continue;
+			}
+			SquadDataInfo.m_CharacterDataID = SpawnData.m_SpawnDataID;
+			SquadDataInfo.m_GameCharacter = SpawnActor;
+
+			NewSquad->SetSquadCharacterList(SquadDataInfo);
+		}
 	}
 	
 	int32 Test = m_MonsterSpawnData->m_SpawnDataInfoList[0].m_SpawnDataID;
 
-	UEIFunctionLibrary_Squad::Create_GameCharacter(m_OwnerSpawnVolume, m_OwnerSpawnVolume, Test, m_OwnerSpawnVolume->GetActorTransform());
+	
 
 
 	m_OwnerSpawnVolume->SetActorSquadList(NewSquad);
