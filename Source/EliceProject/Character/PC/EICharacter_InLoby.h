@@ -5,10 +5,10 @@
 #include "CoreMinimal.h"
 #include "Character/Common/EIGameCharacter.h"
 #include "Character/Common/EICharacterEnum.h"
-#include "EIPlayer.generated.h"
+#include "EICharacter_InLoby.generated.h"
 
 /**
- * 플레이어
+ * Loby 전용 캐릭터.
  */
 
 class UCameraComponent;
@@ -16,12 +16,12 @@ class USpringArmComponent;
 class AEIPlayerController;
 
 UCLASS(Blueprintable, Blueprintable)
-class ELICEPROJECT_API AEIPlayer : public AEIGameCharacter
+class ELICEPROJECT_API AEICharacter_InLoby : public AEIGameCharacter
 {
 	GENERATED_BODY()
 	
 public:
-	AEIPlayer();
+	AEICharacter_InLoby();
 
 protected:
 	virtual void PostInitializeComponents() override;
@@ -29,24 +29,18 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	//------------------------------------------------------------------//
-	
-public:
+
 	void SetCameraMode();
 
 protected:
 	UPROPERTY(EditAnywhere, Category = "Camera")
-	UCameraComponent* m_MainCamera;
+	UCameraComponent* m_LobyCamera;
 
 	UPROPERTY(EditAnywhere, Category = "Camera")
-	USpringArmComponent* m_MainCameraArm;
+	USpringArmComponent* m_LobyCameraArm;
 
-	UPROPERTY()
-	AEIPlayerController* m_PlayerController;
-
-	float m_ArmLengthTo;
-	//UPROPERTY(VisibleAnywhere, Category = "Stat")
-		//class UPlayerStatComponent* playerStat_;
+	float m_ArmLengthTo = 0.f;
+	//-------------------------------------------------------/
 
 private:
 	EICharacterCameraType m_CameraType = EICharacterCameraType::DefaultCamera;

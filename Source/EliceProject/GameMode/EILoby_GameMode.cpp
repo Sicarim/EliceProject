@@ -1,14 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "GameMode/EIBattle_GameMode.h"
+#include "GameMode/EILoby_GameMode.h"
 
-#include "Character/PC/EIPlayer.h"
+#include "Character/PC/EICharacter_InLoby.h"
 #include "Character/Controller/EIPlayerController.h"
 #include "GameState/EIGameState_InBattle.h"
 
-AEIBattle_GameMode::AEIBattle_GameMode()
+AEILoby_GameMode::AEILoby_GameMode()
 {
-	DefaultPawnClass = AEIPlayer::StaticClass();
+	DefaultPawnClass = AEICharacter_InLoby::StaticClass();
 	PlayerControllerClass = AEIPlayerController::StaticClass();
 	GameStateClass = AEIGameState_InBattle::StaticClass();
 	//PlayerStateClass = AWarPlayerState::StaticClass();
@@ -44,7 +44,7 @@ AEIBattle_GameMode::AEIBattle_GameMode()
 	}*/
 }
 
-void AEIBattle_GameMode::PostInitializeComponents()
+void AEILoby_GameMode::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 
@@ -52,27 +52,15 @@ void AEIBattle_GameMode::PostInitializeComponents()
 }
 
 //------- Login ------
-	// -서버로 접근하려는 플레이어를 처리할 때, 실행되는 함수.
-void AEIBattle_GameMode::PreLogin(const FString& Options, const FString& Address, const FUniqueNetIdRepl& UniqueId, FString& ErrorMessage)
+// -서버로 접근하려는 플레이어를 처리할 때, 실행되는 함수.
+void AEILoby_GameMode::PreLogin(const FString& Options, const FString& Address, const FUniqueNetIdRepl& UniqueId, FString& ErrorMessage)
 {
 
 }
 
 // - 플레이어가 서버에 접근 완료하고 나서 실행되는 함수.
-void AEIBattle_GameMode::PostLogin(APlayerController* NewPlayer)
+void AEILoby_GameMode::PostLogin(APlayerController* NewPlayer)
 {
 	Super::PostLogin(NewPlayer);
-
-	/*auto WarPlayerState = Cast<AWarPlayerState>(NewPlayer->PlayerState);
-
-	if (WarPlayerState == nullptr)
-	{
-		ABLOG(Error, TEXT("Nullptr : PlayerState"));
-		return;
-	}
-
-	WarPlayerState->InitPlayerData();*/
 }
 //----- Login END -----
-
-
