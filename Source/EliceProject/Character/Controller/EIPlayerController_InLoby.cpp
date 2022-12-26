@@ -7,6 +7,8 @@
 
 #include "UI/Main/Form/EIMain_Loby_Form.h"
 
+#include "EliceProject.h"
+
 AEIPlayerController_InLoby::AEIPlayerController_InLoby()
 {
 
@@ -19,18 +21,23 @@ void AEIPlayerController_InLoby::BeginPlay()
     UEIGameUISystem* UISystem = UEIFunctionLibrary_System::GetUISystem(this);
     if (UISystem == nullptr || UISystem->IsValidLowLevel() == false)
     {
-        EI_LOG(Warning, TEXT("[UEIGameUISystem] UISystem is nullptr"));
+        EI_LOG(Warning, TEXT("[AEIPlayerController_InLoby] UISystem is nullptr"));
         return;
     }
 
     UUserWidget* UserWidget = UISystem->Show(this, EIWidgetType::MainLoby);
     if (UISystem == nullptr || UISystem->IsValidLowLevel() == false)
     {
-        EI_LOG(Warning, TEXT("[UEIGameUISystem] UISystem is nullptr"));
+        EI_LOG(Warning, TEXT("[AEIPlayerController_InLoby] UISystem is nullptr"));
         return;
     }
 
     m_MainLobyWidget = Cast<UEIMain_Loby_Form>(UserWidget);
+    if (m_MainLobyWidget == nullptr || m_MainLobyWidget->IsValidLowLevel() == false)
+    {
+        EI_LOG(Warning, TEXT("[AEIPlayerController_InLoby] m_MainLobyWidget is nullptr"));
+        return;
+    }
 }
 
 void AEIPlayerController_InLoby::SetupInputComponent()

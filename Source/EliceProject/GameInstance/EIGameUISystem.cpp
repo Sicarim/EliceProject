@@ -2,6 +2,7 @@
 
 #include "GameInstance/EIGameUISystem.h"
 
+#include "EliceProject.h"
 #include "Table/EITable.h"
 #include "Table/EIUIData.h"
 #include "Library_System/EIFunctionLibrary_System.h"
