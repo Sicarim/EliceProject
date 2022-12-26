@@ -46,7 +46,7 @@ void UEIInteractionSystem::Server_InteractionListSync_Implementation(const TArra
     NetMulticast_InteractionListSync(m_InteractionList);
     //if (GetWorld()->GetNetMode() == NM_Client)
     {
-        UE_LOG(LogTemp, Warning, TEXT("NetMode :: Client  ListCount : %d"), m_InteractionList.Num());
+        EI_LOG(Warning, TEXT("NetMode :: Client  ListCount : %d"), m_InteractionList.Num());
     }
 }
 
@@ -57,7 +57,7 @@ void UEIInteractionSystem::Client_InteractionListSync_Implementation(const TArra
     NetMulticast_InteractionListSync(m_InteractionList);
    // if (GetWorld()->GetNetMode() == NM_Client)
     {
-        UE_LOG(LogTemp, Warning, TEXT("NetMode :: Client  ListCount : %d"), m_InteractionList.Num());
+        EI_LOG(Warning, TEXT("NetMode :: Client  ListCount : %d"), m_InteractionList.Num());
     }
 }
 
@@ -66,7 +66,7 @@ void UEIInteractionSystem::NetMulticast_InteractionListSync_Implementation(const
     m_InteractionList = InArray;
     //if (GetWorld()->GetNetMode() == NM_Client)
     {
-        UE_LOG(LogTemp, Warning, TEXT("NetMode :: Client  ListCount : %d"), m_InteractionList.Num());
+        EI_LOG(Warning, TEXT("NetMode :: Client  ListCount : %d"), m_InteractionList.Num());
     }
 }
 

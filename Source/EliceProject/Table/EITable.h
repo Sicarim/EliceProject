@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "GameInstance/EILevelDefine.h"
 #include "EITable.generated.h"
 
 /**
@@ -23,6 +24,9 @@ struct FEIFormationData;
 
 //Level
 struct FEILevelData;
+
+//UI
+struct FEIUIData;
 
 UCLASS(BlueprintType, Blueprintable)
 class ELICEPROJECT_API UEITable : public UObject
@@ -47,6 +51,9 @@ public:
 	//Level
 	bool GetLevelDataAt(int32 InDataId, FEILevelData& OutLevelDataAt);
 
+	//UI
+	bool GetUIDataAt(EIWidgetType InWidgetType, FEIUIData& OutUIDataAt);
+
 protected:
 	//Character
 	UPROPERTY()
@@ -61,5 +68,10 @@ protected:
 	UDataTable* m_FormationData = nullptr;
 
 	//Level
+	UPROPERTY()
 	UDataTable* m_LevelData = nullptr;
+
+	//UI
+	UPROPERTY()
+	UDataTable* m_UIData = nullptr;
 };

@@ -14,4 +14,5 @@ class ELICEPROJECT_API AEIGameState_InLoby : public AGameStateBase
 {
 	GENERATED_BODY()
 	
+	AEIGameState_InLoby();
 };

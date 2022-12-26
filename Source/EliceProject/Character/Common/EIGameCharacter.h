@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Character/Common/EICharacter.h"
 #include "Interaction/Interface/EIInteraction.h"
+#include "EliceProject.h"
 #include "EIGameCharacter.generated.h"
 
 /**

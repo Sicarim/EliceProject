@@ -128,19 +128,19 @@ void AEIInteractionBaseActor::InitInteraction()
 //* Begin Event */
 void AEIInteractionBaseActor::Interaction_BeginOverlap_Implementation(AActor* InActor)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Base Begin"));
+	EI_LOG(Warning, TEXT("Base Begin"));
 }
 
 //* Execute Event */
 void AEIInteractionBaseActor::Interaction_Execute_Implementation(AActor* InActor)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Base Execute"));
+	EI_LOG(Warning, TEXT("Base Execute"));
 }
 
 //* End Event */
 void AEIInteractionBaseActor::Interaction_EndOverlap_Implementation(AActor* InActor)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Base End"));
+	EI_LOG(Warning, TEXT("Base End"));
 }
 
 //* Link Event */

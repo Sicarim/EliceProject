@@ -7,7 +7,7 @@
 #include "EICameraManager.generated.h"
 
 /**
- * TO DO : CameraManager - 다양한 카메라 뷰
+ * CameraManager - 카메라 관리
  */
 
 UCLASS()

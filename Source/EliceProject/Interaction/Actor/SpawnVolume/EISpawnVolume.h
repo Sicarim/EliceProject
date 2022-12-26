@@ -63,13 +63,13 @@ protected:
 	UPROPERTY(Instanced, EditAnyWhere, BlueprintReadWrite, meta = (DisplayName = "Spawn Data"))
 	UEISpawnBaseData* m_SpawnData = nullptr;
 
-	UPROPERTY()
-	UEISpawnBaseBehavior* m_SpawnBehavior = nullptr;
-
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, meta = (Category = "SpawnVolume Setting"))
 	USphereComponent* m_SphereCollision = nullptr;
 
 	UPROPERTY()
+	UEISpawnBaseBehavior* m_SpawnBehavior = nullptr;
+
+	UPROPERTY(Transient)
 	TArray<UEISquad*> m_ActiveSquadList;
 	
 

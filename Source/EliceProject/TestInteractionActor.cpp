@@ -39,7 +39,7 @@ void ATestInteractionActor::Tick(float DeltaTime)
 
 void ATestInteractionActor::NotifyActorBeginOverlap(AActor* OtherActor)
 { 
-	UE_LOG(LogTemp, Log, TEXT("NotifyActorBeginOverlap"));
+	EI_LOG(Log, TEXT("NotifyActorBeginOverlap"));
 
 	TestMoveTrue();
 
@@ -50,7 +50,7 @@ void ATestInteractionActor::NotifyActorBeginOverlap(AActor* OtherActor)
 
 void ATestInteractionActor::NotifyActorEndOverlap(AActor* OtherActor) 
 { 
-	UE_LOG(LogTemp, Log, TEXT("NotifyActorEndOverlap"));
+	EI_LOG(Log, TEXT("NotifyActorEndOverlap"));
 
 	TestMoveFalse();
 }

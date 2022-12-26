@@ -2,6 +2,7 @@
 
 #include "Table/EITable.h"
 
+#include "EliceProject.h"
 #include "Engine/DataTable.h"
 #include "UObject/ConstructorHelpers.h"
 
@@ -16,6 +17,9 @@
 
 //Level Data
 #include "Table/EILevelData.h"
+
+//UIData
+#include "Table/EIUIData.h"
 
 UEITable::UEITable()
 {
@@ -43,6 +47,11 @@ void UEITable::InitTableData()
 	FString LevelDataPath = TEXT("/Game/Contents/Table/LevelData.LevelData");
 	static ConstructorHelpers::FObjectFinder<UDataTable> LeveData(*LevelDataPath);
 	m_LevelData = LeveData.Object;
+
+	//UI Data
+	FString MainLobyDataPath = TEXT("/Game/Contents/Table/UIData.UIData");
+	static ConstructorHelpers::FObjectFinder<UDataTable> UIData(*MainLobyDataPath);
+	m_UIData = UIData.Object;
 }
 
 //* Monster SpawnData */
@@ -50,14 +59,14 @@ bool UEITable::GetMonsterDataAt(int32 InDataId, FEIMonsterData& OutMonsterDataAt
 {
 	if (m_MonsterData == nullptr)
 	{
-		UE_LOG(LogTemp, Error, TEXT("[EITable] m_MonsterData is nullptr"));
+		EI_LOG(Error, TEXT("[EITable] m_MonsterData is nullptr"));
 		return false;
 	}
 
 	FEIMonsterData* MonsterData = m_MonsterData->FindRow<FEIMonsterData>(*FString::FromInt(InDataId), TEXT(""));
 	if (MonsterData == nullptr)
 	{
-		UE_LOG(LogTemp, Error, TEXT("[EITable] MonsterData FindRow Failed"));
+		EI_LOG(Error, TEXT("[EITable] MonsterData FindRow Failed"));
 		return false;
 	}
 
@@ -71,14 +80,14 @@ bool UEITable::GetSpawnDataAt(int32 InDataId, FEICharacterSpawnData& OutSpawnDat
 {
 	if (m_CharacterSpawnData == nullptr)
 	{
-		UE_LOG(LogTemp, Error, TEXT("[EITable] m_CharacterSpawnData is nullptr"));
+		EI_LOG(Error, TEXT("[EITable] m_CharacterSpawnData is nullptr"));
 		return false;
 	}
 
 	FEICharacterSpawnData* SpawnData = m_CharacterSpawnData->FindRow<FEICharacterSpawnData>(*FString::FromInt(InDataId), TEXT(""));
 	if (SpawnData == nullptr)
 	{
-		UE_LOG(LogTemp, Error, TEXT("[EITable] SpawnData FindRow Failed"));
+		EI_LOG(Error, TEXT("[EITable] SpawnData FindRow Failed"));
 		return false;
 	}
 
@@ -92,14 +101,14 @@ bool UEITable::GetFormationDataAt(int32 InDataId, FEIFormationData& OutFormation
 {
 	if (m_FormationData == nullptr)
 	{
-		UE_LOG(LogTemp, Error, TEXT("[EITable] m_FormationData is nullptr"));
+		EI_LOG(Error, TEXT("[EITable] m_FormationData is nullptr"));
 		return false;
 	}
 
 	FEIFormationData* FormationData = m_FormationData->FindRow<FEIFormationData>(*FString::FromInt(InDataId), TEXT(""));
 	if (FormationData == nullptr)
 	{
-		UE_LOG(LogTemp, Error, TEXT("[EITable] FormationData FindRow Failed"));
+		EI_LOG(Error, TEXT("[EITable] FormationData FindRow Failed"));
 		return false;
 	}
 
@@ -108,22 +117,43 @@ bool UEITable::GetFormationDataAt(int32 InDataId, FEIFormationData& OutFormation
 	return true;
 }
 
+//* Level Data */
 bool UEITable::GetLevelDataAt(int32 InDataId, FEILevelData& OutLevelDataAt)
 {
 	if (m_LevelData == nullptr)
 	{
-		UE_LOG(LogTemp, Error, TEXT("[EITable] m_LevelData is nullptr"));
+		EI_LOG(Error, TEXT("[EITable] m_LevelData is nullptr"));
 		return false;
 	}
 
 	FEILevelData* LevelData = m_LevelData->FindRow<FEILevelData>(*FString::FromInt(InDataId), TEXT(""));
 	if (LevelData == nullptr)
 	{
-		UE_LOG(LogTemp, Error, TEXT("[EITable] LevelData FindRow Failed"));
+		EI_LOG(Error, TEXT("[EITable] LevelData FindRow Failed"));
 		return false;
 	}
 
 	OutLevelDataAt = *LevelData;
+
+	return true;
+}
+
+bool UEITable::GetUIDataAt(EIWidgetType InWidgetType, FEIUIData& OutUIDataAt)
+{
+	if (m_UIData == nullptr)
+	{
+		EI_LOG(Error, TEXT("[EITable] m_UIData is nullptr"));
+		return false;
+	}
+
+	FEIUIData* UIData = m_UIData->FindRow<FEIUIData>(*FString::FromInt((int32)InWidgetType), TEXT(""));
+	if (UIData == nullptr)
+	{
+		EI_LOG(Error, TEXT("[EITable] UIData FindRow Failed"));
+		return false;
+	}
+
+	OutUIDataAt = *UIData;
 
 	return true;
 }

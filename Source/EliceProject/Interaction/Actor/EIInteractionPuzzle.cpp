@@ -37,15 +37,15 @@ void AEIInteractionPuzzle::Tick(float DeltaTime)
 
 void AEIInteractionPuzzle::Interaction_BeginOverlap_Implementation(AActor* InActor)
 {
-    UE_LOG(LogTemp, Warning, TEXT("Puzzle Begin"));
+    EI_LOG(Warning, TEXT("Puzzle Begin"));
 }
 
 void AEIInteractionPuzzle::Interaction_Execute_Implementation(AActor* InActor)
 {
-    UE_LOG(LogTemp, Warning, TEXT("Puzzle Execute"));
+    EI_LOG(Warning, TEXT("Puzzle Execute"));
 }
 
 void AEIInteractionPuzzle::Interaction_EndOverlap_Implementation(AActor* InActor)
 {
-    UE_LOG(LogTemp, Warning, TEXT("Puzzle End"));
+    EI_LOG(Warning, TEXT("Puzzle End"));
 }

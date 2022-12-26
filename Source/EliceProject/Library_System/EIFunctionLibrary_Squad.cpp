@@ -15,13 +15,13 @@ UEISquad* UEIFunctionLibrary_Squad::Create_Squad(UObject* WorldContextObject, AA
 {
 	if (WorldContextObject == nullptr || WorldContextObject->IsValidLowLevel() == false)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("[UEIFunctionLibrary_Squad] InOwner is nullptr"));
+		EI_LOG(Warning, TEXT("[UEIFunctionLibrary_Squad] InOwner is nullptr"));
 		return nullptr;
 	}
 
 	if (InOwner == nullptr || InOwner->IsValidLowLevel() == false)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("[UEIFunctionLibrary_Squad] InOwner is nullptr"));
+		EI_LOG(Warning, TEXT("[UEIFunctionLibrary_Squad] InOwner is nullptr"));
 		return nullptr;
 	}
 
@@ -29,7 +29,7 @@ UEISquad* UEIFunctionLibrary_Squad::Create_Squad(UObject* WorldContextObject, AA
 	Squad = NewObject<UEISquad>(InOwner);
 	if (Squad == nullptr || Squad->IsValidLowLevel() == false)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("[UEIFunctionLibrary_Squad] Squad is nullptr"));
+		EI_LOG(Warning, TEXT("[UEIFunctionLibrary_Squad] Squad is nullptr"));
 		return nullptr;
 	}
 
@@ -41,13 +41,13 @@ AEIGameCharacter* UEIFunctionLibrary_Squad::Create_GameCharacter(UObject* WorldC
 {
 	if (WorldContextObject == nullptr || WorldContextObject->IsValidLowLevel() == false)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("[UEIFunctionLibrary_Squad] InOwner is nullptr"));
+		EI_LOG(Warning, TEXT("[UEIFunctionLibrary_Squad] InOwner is nullptr"));
 		return nullptr;
 	}
 
 	if (InOwner == nullptr || InOwner->IsValidLowLevel() == false)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("[UEIFunctionLibrary_Squad] InOwner is nullptr"));
+		EI_LOG(Warning, TEXT("[UEIFunctionLibrary_Squad] InOwner is nullptr"));
 		return nullptr;
 	}
 
@@ -56,28 +56,28 @@ AEIGameCharacter* UEIFunctionLibrary_Squad::Create_GameCharacter(UObject* WorldC
 	UEITable* Table = UEIFunctionLibrary_System::GetTable(WorldContextObject);
 	if (Table == nullptr || Table->IsValidLowLevel() == false)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("[UEIFunctionLibrary_Squad] Table is nullptr"));
+		EI_LOG(Warning, TEXT("[UEIFunctionLibrary_Squad] Table is nullptr"));
 		return nullptr;
 	}
 
 	FEIMonsterData MonsterData;
 	if (Table->GetMonsterDataAt(InCharacterID, MonsterData) == false)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("[UEIFunctionLibrary_Squad] GetMonsterDataAt is Failed"));
+		EI_LOG(Warning, TEXT("[UEIFunctionLibrary_Squad] GetMonsterDataAt is Failed"));
 		return nullptr;
 	}
 
 	UObject* LoadObject = MonsterData.bp_path.TryLoad();
 	if (LoadObject == nullptr || LoadObject->IsValidLowLevel() == false)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("[UEIFunctionLibrary_Squad] LoadObject is nullptr"));
+		EI_LOG(Warning, TEXT("[UEIFunctionLibrary_Squad] LoadObject is nullptr"));
 		return nullptr;
 	}
 
 	UClass* CharacterClass = Cast<UClass>(LoadObject);
 	if (CharacterClass == nullptr || CharacterClass->IsValidLowLevel() == false)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("[UEIFunctionLibrary_Squad] CharacterClass is nullptr"));
+		EI_LOG(Warning, TEXT("[UEIFunctionLibrary_Squad] CharacterClass is nullptr"));
 		return nullptr;
 	}
 
@@ -88,7 +88,7 @@ AEIGameCharacter* UEIFunctionLibrary_Squad::Create_GameCharacter(UObject* WorldC
 	GameCharacter = WorldContextObject->GetWorld()->SpawnActor<AEIGameCharacter>(CharacterClass, SpawnParameter);
 	if (GameCharacter == nullptr || GameCharacter->IsValidLowLevel() == false)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("[UEIFunctionLibrary_Squad] GameCharacter is nullptr"));
+		EI_LOG(Warning, TEXT("[UEIFunctionLibrary_Squad] GameCharacter is nullptr"));
 		return nullptr;
 	}
 

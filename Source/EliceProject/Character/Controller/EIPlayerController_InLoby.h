@@ -4,23 +4,21 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
-#include "EIPlayerController.generated.h"
-
-class UCharacterMovementComponent;
+#include "EIPlayerController_InLoby.generated.h"
 
 /**
- * 
+ * 로비용 컨트롤러.
  */
 
 class UEIMain_Loby_Form;
 
-UCLASS()
-class ELICEPROJECT_API AEIPlayerController : public APlayerController
+UCLASS(Blueprintable, Blueprintable)
+class ELICEPROJECT_API AEIPlayerController_InLoby : public APlayerController
 {
 	GENERATED_BODY()
 	
 public:
-	AEIPlayerController();
+	AEIPlayerController_InLoby();
 
 protected:
 	virtual void BeginPlay() override;
@@ -28,14 +26,8 @@ protected:
 	virtual void PostInitializeComponents() override;
 	virtual void OnPossess(APawn* InPawn) override;
 	virtual void ProcessPlayerInput(const float DeltaTime, const bool bGamePaused) override;
-	//-------------------------------------------------------------------//
-
-public:
-	void ForceMove(float DeltaTime);
-
-
-	
 
 private:
-	float m_ForceDeltaTime = 0.f;
+	UPROPERTY()
+	UEIMain_Loby_Form* m_MainLobyWidget = nullptr;
 };

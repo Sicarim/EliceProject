@@ -31,9 +31,10 @@ void UEIGameInstance::UEIGameInstance::Shutdown()
 
 void UEIGameInstance::CreateInstance()
 {
+    AddInstance<UEITable>(NewObject<UEITable>(this));
+    AddInstance<UEILevelSystem>(NewObject<UEILevelSystem>(this));
+    AddInstance<UEIGameUISystem>(NewObject<UEIGameUISystem>(this));
+
     AddInstance<UEIInteractionSystem>(NewObject<UEIInteractionSystem>(this));
     AddInstance<UEIProcedureSystem>(NewObject<UEIProcedureSystem>(this));
-    AddInstance<UEIGameUISystem>(NewObject<UEIGameUISystem>(this));
-    AddInstance<UEILevelSystem>(NewObject<UEILevelSystem>(this));
-    AddInstance<UEITable>(NewObject<UEITable>(this));
 }

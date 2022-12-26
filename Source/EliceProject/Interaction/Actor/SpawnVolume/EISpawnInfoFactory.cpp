@@ -20,7 +20,7 @@ UEISpawnBaseData* UEISpawnInfoFactory::CreateSpawnData(EISpawnVolumeType InSpawn
 {
     if (InOwner == nullptr || false == InOwner->IsValidLowLevel())
     {
-        UE_LOG(LogTemp, Warning, TEXT("InOwner is nullptr"));
+        EI_LOG(Warning, TEXT("InOwner is nullptr"));
         return nullptr;
     }
 
@@ -48,7 +48,7 @@ UEISpawnBaseBehavior* UEISpawnInfoFactory::CreateSpawnBehavior(EISpawnVolumeType
 {
     if (InOwner == nullptr || false == InOwner->IsValidLowLevel())
     {
-        UE_LOG(LogTemp, Warning, TEXT("InOwner is nullptr"));
+        EI_LOG(Warning, TEXT("InOwner is nullptr"));
         return nullptr;
     }
 

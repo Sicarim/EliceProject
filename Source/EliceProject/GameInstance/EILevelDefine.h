@@ -1,14 +1,22 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
 #include "CoreMinimal.h"
+
+//UI Define
+UENUM(BlueprintType)
+enum class EIWidgetType : uint8
+{
+    None,
+    MainLoby   UMETA(DisplayName = "ë©”ì¸ ë¡œë¹„ UI"),
+};
 
 //Level Define
 UENUM(BlueprintType)
 enum class EIProcedureType : uint8
 {
     None,
-    PersistentLevelLoad   UMETA(DisplayName = "ÆÛ½Ã½ºÅÏÆ®·¹º§ ·Îµù"),
-    SubLevelLoad          UMETA(DisplayName = "¼­ºê·¹º§ ·Îµù"),
+    PersistentLevelLoad   UMETA(DisplayName = "í¼ì‹œìŠ¤í„´íŠ¸ë ˆë²¨ ë¡œë”©"),
+    SubLevelLoad          UMETA(DisplayName = "ì„œë¸Œë ˆë²¨ ë¡œë”©"),
 };

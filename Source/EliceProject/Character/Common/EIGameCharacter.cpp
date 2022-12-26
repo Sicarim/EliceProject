@@ -57,13 +57,13 @@ void AEIGameCharacter::Server_ExecuteInteractionEvent_Implementation(AActor* InI
 {
 	if (nullptr == InInteractionCharacter || false == InInteractionCharacter->IsValidLowLevel())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("InInteractionCharacter is nullptr"));
+		EI_LOG(Warning, TEXT("InInteractionCharacter is nullptr"));
 		return;
 	}
 
 	if (nullptr == InInteractionActor || false == InInteractionActor->IsValidLowLevel())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("InInteractionActor is nullptr"));
+		EI_LOG(Warning, TEXT("InInteractionActor is nullptr"));
 		return;
 	}
 
@@ -137,11 +137,11 @@ void AEIGameCharacter::Interaction_EventProcess_Implementation(AActor* InActor, 
 	/*ENetMode NetMode = GetNetMode();
 	if (ENetMode::NM_Client == NetMode)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Client"));
+		EI_LOG(Warning, TEXT("Client"));
 	}
 	if (ENetMode::NM_DedicatedServer == NetMode)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Server"));
+		EI_LOG(Warning, TEXT("Server"));
 	}*/
 
 	switch (InEventType)

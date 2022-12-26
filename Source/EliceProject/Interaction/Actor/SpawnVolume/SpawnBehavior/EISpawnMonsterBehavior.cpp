@@ -33,14 +33,14 @@ bool UEISpawnMonsterBehavior::OnStartSpawn()
 {
 	if (m_MonsterSpawnData == nullptr || m_MonsterSpawnData->IsValidLowLevel() == false)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("[UEISpawnMonsterBehavior] m_MonsterSpawnData is nullptr"));
+		EI_LOG(Warning, TEXT("[UEISpawnMonsterBehavior] m_MonsterSpawnData is nullptr"));
 		return false;
 	}
 
 	UEISquad* NewSquad = UEIFunctionLibrary_Squad::Create_Squad(m_OwnerSpawnVolume, m_OwnerSpawnVolume);
 	if (NewSquad == nullptr || NewSquad->IsValidLowLevel() == false)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("[UEISpawnMonsterBehavior] NewSquad is nullptr"));
+		EI_LOG(Warning, TEXT("[UEISpawnMonsterBehavior] NewSquad is nullptr"));
 		return false;
 	}
 
@@ -53,7 +53,7 @@ bool UEISpawnMonsterBehavior::OnStartSpawn()
 
 		if (GetTableDataAt(SpawnData.m_SpawnDataID, CharacterSpawnData, FormationData) == false)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("[UEISpawnMonsterBehavior] SpawnTable is Failed"));
+			EI_LOG(Warning, TEXT("[UEISpawnMonsterBehavior] SpawnTable is Failed"));
 			return false;
 		}
 
@@ -67,7 +67,7 @@ bool UEISpawnMonsterBehavior::OnStartSpawn()
 			AEIGameCharacter* SpawnActor = CreateSpawnActor(CreatureData);
 			if (SpawnActor == nullptr || SpawnActor->IsValidLowLevel() == false)
 			{
-				UE_LOG(LogTemp, Warning, TEXT("[UEISpawnMonsterBehavior] SpawnActor is nullptr"));
+				EI_LOG(Warning, TEXT("[UEISpawnMonsterBehavior] SpawnActor is nullptr"));
 				continue;
 			}
 			SquadDataInfo.m_CharacterDataID = SpawnData.m_SpawnDataID;

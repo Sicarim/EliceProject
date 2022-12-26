@@ -28,13 +28,13 @@ void UEISpawnBaseBehavior::InitSpawnData(AEISpawnVolume* InSpawnVolume, UEISpawn
 {
 	if (InSpawnVolume == nullptr || InSpawnVolume->IsValidLowLevel() == false)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("InSpawnVolume is nullptr"));
+		EI_LOG(Warning, TEXT("InSpawnVolume is nullptr"));
 		return;
 	}
 
 	if (InSpawnData == nullptr || InSpawnData->IsValidLowLevel() == false)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("InSpawnData is nullptr"));
+		EI_LOG(Warning, TEXT("InSpawnData is nullptr"));
 		return;
 	}
 
@@ -47,14 +47,14 @@ bool UEISpawnBaseBehavior::GetTableDataAt(int32 InSpawnDataId, FEICharacterSpawn
 	UEITable* Table = UEIFunctionLibrary_System::GetTable(m_OwnerSpawnVolume);
 	if (Table == nullptr || Table->IsValidLowLevel() == false)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("[UEISpawnBaseBehavior] Table is nullptr"));
+		EI_LOG(Warning, TEXT("[UEISpawnBaseBehavior] Table is nullptr"));
 		return false;
 	}
 
 	FEICharacterSpawnData CharacterSpawnData;
 	if (Table->GetSpawnDataAt(InSpawnDataId, CharacterSpawnData) == false)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("[UEISpawnBaseBehavior] FEICharacterSpawnData is Failed"));
+		EI_LOG(Warning, TEXT("[UEISpawnBaseBehavior] FEICharacterSpawnData is Failed"));
 		return false;
 	}
 
@@ -63,7 +63,7 @@ bool UEISpawnBaseBehavior::GetTableDataAt(int32 InSpawnDataId, FEICharacterSpawn
 	FEIFormationData FormationData;
 	if (Table->GetFormationDataAt(CharacterSpawnData.fomation_index, FormationData) == false)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("[UEISpawnBaseBehavior] FEIFormationData is Failed"));
+		EI_LOG(Warning, TEXT("[UEISpawnBaseBehavior] FEIFormationData is Failed"));
 		return false;
 	}
 
@@ -185,7 +185,7 @@ AEIGameCharacter* UEISpawnBaseBehavior::CreateSpawnActor(FEICreatureDataInfo InC
 	SpawnActor = UEIFunctionLibrary_Squad::Create_GameCharacter(m_OwnerSpawnVolume, m_OwnerSpawnVolume, InCreatureData.m_SpawnDataID, InCreatureData.m_SpawnTransform);
 	if (SpawnActor == nullptr || SpawnActor->IsValidLowLevel() == false)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("[UEIFunctionLibrary_Squad] SpawnActor is nullptr"));
+		EI_LOG(Warning, TEXT("[UEIFunctionLibrary_Squad] SpawnActor is nullptr"));
 		return nullptr;
 	}
 

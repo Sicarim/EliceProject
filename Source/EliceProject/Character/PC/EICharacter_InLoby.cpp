@@ -2,12 +2,16 @@
 
 #include "Character/PC/EICharacter_InLoby.h"
 
-#include "Camera/CameraComponent.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Kismet/GameplayStatics.h"
+
+#include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Components/SkeletalMeshComponent.h"
+
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Character/Controller/EIPlayerController_InLoby.h"
 
 AEICharacter_InLoby::AEICharacter_InLoby()
 {
@@ -28,6 +32,14 @@ AEICharacter_InLoby::AEICharacter_InLoby()
 void AEICharacter_InLoby::BeginPlay()
 {
 	Super::BeginPlay();
+
+	APlayerController* PC = UGameplayStatics::GetPlayerController(this, 0);
+	if (PC == nullptr || PC->IsValidLowLevel() == false)
+		return;
+
+	m_PlayerController = Cast<AEIPlayerController_InLoby>(PC);
+	if (nullptr == m_PlayerController || false == m_PlayerController->IsValidLowLevel())
+		return;
 
 	SetCameraMode();
 }

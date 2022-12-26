@@ -233,14 +233,14 @@ void UEIInteractionComponent::SearchInteraction()
 		AEIGameCharacter* Character = Cast<AEIGameCharacter>(GetOwner());
 		if (nullptr == Character || false == Character->IsValidLowLevel())
 		{
-			UE_LOG(LogTemp, Warning, TEXT("CachedCharacter is nullptr"));
+			EI_LOG(Warning, TEXT("CachedCharacter is nullptr"));
 			return;
 		}
 
 		UCapsuleComponent* CharacterCapsule = Character->GetCapsuleComponent();
 		if (nullptr == CharacterCapsule || false == CharacterCapsule->IsValidLowLevel())
 		{
-			UE_LOG(LogTemp, Warning, TEXT("CapsuleComponent is nullptr"));
+			EI_LOG(Warning, TEXT("CapsuleComponent is nullptr"));
 			return;
 		}
 
@@ -315,7 +315,7 @@ void UEIInteractionComponent::UpdateInteractionData(TArray<FHitResult>& InHitLis
 
 		for (int32 i = 0; i < BeginOverlapList.Num(); i++)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Actor Name : %s %d"), *BeginOverlapList[i].m_InteractionActor->GetName(), BeginOverlapList.Num());
+			EI_LOG(Warning, TEXT("Actor Name : %s %d"), *BeginOverlapList[i].m_InteractionActor->GetName(), BeginOverlapList.Num());
 		}
 	}
 

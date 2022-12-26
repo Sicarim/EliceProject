@@ -64,7 +64,7 @@ void AEIPlayer::SetCameraMode()
 		return;
 
 	m_MainCamera->FieldOfView = 90.f;
-	m_ArmLengthTo = 200.f;
+	m_ArmLengthTo = 500.f;
 	m_MainCamera->SetRelativeLocationAndRotation(FVector(0.0f, 80.0f, 80.0f), FRotator(-3.0f, 0.0f, 0.0f));
 
 	m_MainCameraArm->bUsePawnControlRotation = true;
@@ -72,6 +72,8 @@ void AEIPlayer::SetCameraMode()
 	m_MainCameraArm->bInheritRoll = true;
 	m_MainCameraArm->bInheritYaw = true;
 	m_MainCameraArm->bDoCollisionTest = true;
+
+	m_MainCameraArm->TargetArmLength = m_ArmLengthTo;
 }
 //--------------------------Public_END--------------------------//
 

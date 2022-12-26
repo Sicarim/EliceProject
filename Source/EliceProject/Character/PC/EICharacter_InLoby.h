@@ -13,7 +13,8 @@
 
 class UCameraComponent;
 class USpringArmComponent;
-class AEIPlayerController;
+
+class AEIPlayerController_InLoby;
 
 UCLASS(Blueprintable, Blueprintable)
 class ELICEPROJECT_API AEICharacter_InLoby : public AEIGameCharacter
@@ -40,6 +41,9 @@ protected:
 	USpringArmComponent* m_LobyCameraArm;
 
 	float m_ArmLengthTo = 0.f;
+
+	UPROPERTY()
+	AEIPlayerController_InLoby* m_PlayerController = nullptr;
 	//-------------------------------------------------------/
 
 private:

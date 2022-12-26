@@ -3,15 +3,14 @@
 #include "GameMode/EILoby_GameMode.h"
 
 #include "Character/PC/EICharacter_InLoby.h"
-#include "Character/Controller/EIPlayerController.h"
-#include "GameState/EIGameState_InBattle.h"
+#include "Character/Controller/EIPlayerController_InLoby.h"
+#include "GameState/EIGameState_InLoby.h"
 
 AEILoby_GameMode::AEILoby_GameMode()
 {
 	DefaultPawnClass = AEICharacter_InLoby::StaticClass();
-	PlayerControllerClass = AEIPlayerController::StaticClass();
-	GameStateClass = AEIGameState_InBattle::StaticClass();
-	//PlayerStateClass = AWarPlayerState::StaticClass();
+	PlayerControllerClass = AEIPlayerController_InLoby::StaticClass();
+	GameStateClass = AEIGameState_InLoby::StaticClass();
 
 	if (DefaultPawnClass == nullptr || DefaultPawnClass->IsValidLowLevel() == false)
 	{
@@ -48,7 +47,7 @@ void AEILoby_GameMode::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 
-	PlayerControllerClass = AEIPlayerController::StaticClass();
+	PlayerControllerClass = AEIPlayerController_InLoby::StaticClass();
 }
 
 //------- Login ------
@@ -62,5 +61,20 @@ void AEILoby_GameMode::PreLogin(const FString& Options, const FString& Address, 
 void AEILoby_GameMode::PostLogin(APlayerController* NewPlayer)
 {
 	Super::PostLogin(NewPlayer);
+
+	if (NewPlayer == nullptr || NewPlayer->IsValidLowLevel() == false)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("[AEILoby_GameMode] NewPlayer is nullptr"));
+		return;
+	}
+
+	/*AEIGameState_InLoby* CharacterState = Cast<AEIGameState_InLoby>(NewPlayer->);
+	if (CharacterState == nullptr || CharacterState->IsValidLowLevel() == false)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("[AEILoby_GameMode] CharacterState is nullptr"));
+		return;
+	}*/
+
+	//PlayerState->
 }
 //----- Login END -----

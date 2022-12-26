@@ -19,6 +19,8 @@
 #include "Editor/EditorEngine.h"
 #include "NavigationSystem.h"
 
+#include "EliceProject.h"
+
 AEISpawnVolume::AEISpawnVolume()
 {
     m_SphereCollision = CreateDefaultSubobject<USphereComponent>(TEXT("VolumeSphereCollision"));
@@ -35,7 +37,7 @@ void AEISpawnVolume::BeginPlay()
     bool IsSuccess = InitSpawnData();
     if (IsSuccess == false)
     {
-        UE_LOG(LogTemp, Warning, TEXT("[AEISpawnVolume] InitSpawnData is Failed"));
+        EI_LOG(Warning, TEXT("[AEISpawnVolume] InitSpawnData is Failed"));
         return;
     }
 
@@ -54,12 +56,12 @@ bool AEISpawnVolume::InitSpawnData()
 {
     if (m_SpawnBehavior == nullptr || m_SpawnBehavior->IsValidLowLevel() == false)
     {
-        UE_LOG(LogTemp, Warning, TEXT("[AEISpawnVolume] SpawnBehavior is nullptr"));
+        EI_LOG(Warning, TEXT("[AEISpawnVolume] SpawnBehavior is nullptr"));
         return false;
     }
     if (m_SpawnData == nullptr || m_SpawnData->IsValidLowLevel() == false)
     {
-        UE_LOG(LogTemp, Warning, TEXT("[AEISpawnVolume] m_SpawnData is nullptr"));
+        EI_LOG(Warning, TEXT("[AEISpawnVolume] m_SpawnData is nullptr"));
         return false;
     }
 
@@ -84,7 +86,7 @@ void AEISpawnVolume::StartSpawn()
 
     if (m_SpawnBehavior == nullptr || m_SpawnBehavior->IsValidLowLevel() == false)
     {
-        UE_LOG(LogTemp, Warning, TEXT("[AEISpawnVolume] SpawnBehavior is nullptr"));
+        EI_LOG(Warning, TEXT("[AEISpawnVolume] SpawnBehavior is nullptr"));
         return;
     }
 
@@ -92,7 +94,7 @@ void AEISpawnVolume::StartSpawn()
     bool IsSuccess = m_SpawnBehavior->OnStartSpawn();
     if (IsSuccess == false)
     {
-        UE_LOG(LogTemp, Warning, TEXT("[AEISpawnVolume] Spawn Failed!!!"));
+        EI_LOG(Warning, TEXT("[AEISpawnVolume] Spawn Failed!!!"));
         return;
     }
 }
@@ -133,10 +135,10 @@ void AEISpawnVolume::CreateSpawnInfo()
     m_SpawnBehavior = UEISpawnInfoFactory::CreateSpawnBehavior(m_SpawnType, this, m_SpawnData);
 
     if (m_SpawnData == nullptr || m_SpawnData->IsValidLowLevel() == false)
-        UE_LOG(LogTemp, Error, TEXT("[AEISpawnVolume] SpawnData Create Failed"));
+        EI_LOG(Error, TEXT("[AEISpawnVolume] SpawnData Create Failed"));
 
     if (m_SpawnBehavior == nullptr || m_SpawnBehavior->IsValidLowLevel() == false)
-        UE_LOG(LogTemp, Error, TEXT("[AEISpawnVolume] SpawnBehavior Create Failed"));
+        EI_LOG(Error, TEXT("[AEISpawnVolume] SpawnBehavior Create Failed"));
 }
 
 //* SpawnData °»½Å. */
@@ -158,7 +160,7 @@ void AEISpawnVolume::CreateTargetPoint()
 {
     if (m_SpawnData == nullptr || m_SpawnData->IsValidLowLevel() == false)
     {
-        UE_LOG(LogTemp, Error, TEXT("[AEISpawnVolume] SpawnData is nullptr"));
+        EI_LOG(Error, TEXT("[AEISpawnVolume] SpawnData is nullptr"));
         return;
     }
 
@@ -232,12 +234,12 @@ void AEISpawnVolume::UpdateTargetPointPosition(UEITargetComponent* InTargetCompo
 {
     if (InTargetComponent == nullptr || InTargetComponent->IsValidLowLevel() == false)
     {
-        UE_LOG(LogTemp, Error, TEXT("[AEISpawnVolume] InTargetComponent is nullptr"));
+        EI_LOG(Error, TEXT("[AEISpawnVolume] InTargetComponent is nullptr"));
         return;
     }
 
     if (m_SpawnData == nullptr || m_SpawnData->IsValidLowLevel() == false)
-        UE_LOG(LogTemp, Error, TEXT("[AEISpawnVolume] SpawnData is nullptr"));
+        EI_LOG(Error, TEXT("[AEISpawnVolume] SpawnData is nullptr"));
 
     for (int32 i = 0; i < m_SpawnData->m_SpawnDataInfoList.Num(); i++)
     {

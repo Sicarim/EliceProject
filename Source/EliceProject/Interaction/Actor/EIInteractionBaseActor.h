@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "EliceProject.h"
 #include "Interaction/Interface/EIInteraction.h"
 #include "EIInteractionBaseActor.generated.h"
 
