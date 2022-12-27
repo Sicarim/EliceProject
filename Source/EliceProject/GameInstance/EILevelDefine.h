@@ -4,12 +4,13 @@
 
 #include "CoreMinimal.h"
 
-//UI Define
+//Open Level Type
 UENUM(BlueprintType)
-enum class EIWidgetType : uint8
+enum class EIOpenLevelType : uint8
 {
     None,
-    MainLoby   UMETA(DisplayName = "메인 로비 UI"),
+    Main_Loby        UMETA(DisplayName = "메인 로비"),
+    War_Place        UMETA(DisplayName = "대결 장소"),
 };
 
 //Level Define

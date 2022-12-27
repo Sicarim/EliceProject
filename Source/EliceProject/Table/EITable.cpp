@@ -20,6 +20,7 @@
 
 //UIData
 #include "Table/EIUIData.h"
+#include "GameInstance/EIUIDefine.h"
 
 UEITable::UEITable()
 {

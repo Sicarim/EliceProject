@@ -2,6 +2,12 @@
 
 #include "UI/Main/Form/EIMain_Loby_Form.h"
 
+#include "EliceProject.h"
+#include "GameInstance/EILevelDefine.h"
+
+#include "GameInstance/EIProcedureSystem.h"
+#include "Library_System/EIFunctionLibrary_System.h"
+
 #include "UI/Main/EIWidget_LobyButton.h"
 
 UEIMain_Loby_Form::UEIMain_Loby_Form(const FObjectInitializer& ObjectInitializer)
@@ -14,39 +20,49 @@ void UEIMain_Loby_Form::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	//현재 L버튼은 두개, R버튼은 3개로 고정. 따로 규칙이 없어 하드코딩으로 진행.
-
-	//----- L 버튼 -----
-	UEIWidget_LobyButton* LobyButton_L_0 = Cast<UEIWidget_LobyButton>(GetWidgetFromName(TEXT("Loby_Select_button_L_0")));
-	if (LobyButton_L_0 != nullptr && LobyButton_L_0->IsValidLowLevel() == true)
-		m_MenuButtonList_L.Add(LobyButton_L_0);
+	m_MatchingButton = Cast<UEIWidget_LobyButton>(GetWidgetFromName(TEXT("Loby_Select_matching")));
+	if (m_MatchingButton != nullptr && m_MatchingButton->IsValidLowLevel() == true)
+	{
+		m_MatchingButton->SetButtonType(EILobyButtonType::Matching);
+		m_MatchingButton->GetClicked_ButtonEvent().BindUFunction(this, FName("Clicked_MatcingButton"));
+	}
 	else
-		EI_LOG(Warning, TEXT("[UEIWidget_LobyButton] LobyButton_L_0 is nullptr"));
-
-	UEIWidget_LobyButton* LobyButton_L_1 = Cast<UEIWidget_LobyButton>(GetWidgetFromName(TEXT("Loby_Select_button_L_1")));
-	if (LobyButton_L_1 != nullptr && LobyButton_L_1->IsValidLowLevel() == true)
-		m_MenuButtonList_L.Add(LobyButton_L_1);
-	else
-		EI_LOG(Warning, TEXT("[UEIWidget_LobyButton] LobyButton_L_1 is nullptr"));
-	//---- L 버튼 END----
+		EI_LOG(Warning, TEXT("[UEIWidget_LobyButton] m_MatchingButton is nullptr"));
 		
-	//----- R 버튼 -----
-	UEIWidget_LobyButton* LobyButton_R_0 = Cast<UEIWidget_LobyButton>(GetWidgetFromName(TEXT("Loby_Select_button_R_0")));
-	if (LobyButton_R_0 != nullptr && LobyButton_R_0->IsValidLowLevel() == true)
-		m_MenuButtonList_R.Add(LobyButton_R_0);
+	m_BagButton = Cast<UEIWidget_LobyButton>(GetWidgetFromName(TEXT("Loby_Select_bag")));
+	if (m_BagButton != nullptr && m_BagButton->IsValidLowLevel() == true)
+	{
+		m_BagButton->SetButtonType(EILobyButtonType::Bag);
+		m_BagButton->GetClicked_ButtonEvent().BindUFunction(this, FName("Clicked_BagButton"));
+	}
 	else
-		EI_LOG(Warning, TEXT("[UEIWidget_LobyButton] LobyButton_R_0 is nullptr"));
+		EI_LOG(Warning, TEXT("[UEIWidget_LobyButton] m_BagButton is nullptr"));
+		
+	m_ExitButton = Cast<UEIWidget_LobyButton>(GetWidgetFromName(TEXT("Loby_Select_exit")));
+	if (m_ExitButton != nullptr && m_ExitButton->IsValidLowLevel() == true)
+	{
+		m_ExitButton->SetButtonType(EILobyButtonType::Exit);
+		m_ExitButton->GetClicked_ButtonEvent().BindUFunction(this, FName("Clicked_ExitButton"));
+	}
+	else
+		EI_LOG(Warning, TEXT("[UEIWidget_LobyButton] m_ExitButton is nullptr"));
+}
 
-	UEIWidget_LobyButton* LobyButton_R_1 = Cast<UEIWidget_LobyButton>(GetWidgetFromName(TEXT("Loby_Select_button_R_1")));
-	if (LobyButton_R_1 != nullptr && LobyButton_R_1->IsValidLowLevel() == true)
-		m_MenuButtonList_R.Add(LobyButton_R_1);
-	else
-		EI_LOG(Warning, TEXT("[UEIWidget_LobyButton] LobyButton_R_1 is nullptr"));
+void UEIMain_Loby_Form::Clicked_MatcingButton()
+{
+	UEIProcedureSystem* ProcedureSystem = UEIFunctionLibrary_System::GetProcedureSystem(this);
+	if (ProcedureSystem == nullptr || ProcedureSystem->IsValidLowLevel() == false)
+		return;
 
-	UEIWidget_LobyButton* LobyButton_R_2 = Cast<UEIWidget_LobyButton>(GetWidgetFromName(TEXT("Loby_Select_button_R_2")));
-	if (LobyButton_R_2 != nullptr && LobyButton_R_2->IsValidLowLevel() == true)
-		m_MenuButtonList_R.Add(LobyButton_R_2);
-	else
-		EI_LOG(Warning, TEXT("[UEIWidget_LobyButton] LobyButton_R_2 is nullptr"));
-	//---- R 버튼 END----	
+	ProcedureSystem->OnProcedureExecute(this, EIOpenLevelType::War_Place);
+}
+
+void UEIMain_Loby_Form::Clicked_BagButton()
+{
+	EI_LOG(Warning, TEXT(""));
+}
+
+void UEIMain_Loby_Form::Clicked_ExitButton()
+{
+	EI_LOG(Warning, TEXT(""));
 }

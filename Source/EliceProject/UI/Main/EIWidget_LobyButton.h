@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "GameInstance/EIUIDefine.h"
 #include "EIWidget_LobyButton.generated.h"
 
 /**
@@ -12,6 +13,8 @@
 
 class UButton;
 class UEditableTextBox;
+
+DECLARE_DELEGATE(FClickedButton_Event);
 
 UCLASS()
 class ELICEPROJECT_API UEIWidget_LobyButton : public UUserWidget
@@ -24,10 +27,20 @@ public:
 protected:
 	virtual void NativeConstruct() override;
 
+public:
+	FORCEINLINE FClickedButton_Event& GetClicked_ButtonEvent() { return m_ClickedButton; }
+
+	FORCEINLINE void SetButtonType(EILobyButtonType InButtonType) { m_ButtonType = InButtonType; }
+
+protected:
+	UFUNCTION()
+	void ClickButtonClickEvent();
+
 protected:
 	UPROPERTY()
 	UButton* m_MenuButton = nullptr;
 
-	UPROPERTY()
-	UEditableTextBox* m_MenuButtonText = nullptr;
+	EILobyButtonType m_ButtonType = EILobyButtonType::None;
+
+	FClickedButton_Event m_ClickedButton;
 };

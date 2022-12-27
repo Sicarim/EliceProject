@@ -23,5 +23,5 @@ public:
 
 public:
 	UFUNCTION(BlueprintCallable)
-	static UEIProcedure_Base* CreateProcedure(UObject* WorldObjectContext);
+	static UEIProcedure_Base* CreateProcedure(UObject* WorldObjectContext, EIProcedureType InProcedureType);
 };

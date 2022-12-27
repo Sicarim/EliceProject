@@ -2,21 +2,15 @@
 
 #include "../GameMode/EIDefault_GameMode.h"
 
-//#include "../Character/PC/EIPlayer.h"
 #include "Character/PC/EIPlayer.h"
-#include "../Character/Controller/EIPlayerController.h"
-
+#include "Character/Controller/EIPlayerController.h"
+#include "GameState/EIGameState_InBattle.h"
 
 AEIDefault_GameMode::AEIDefault_GameMode()
 {
 	PlayerControllerClass = AEIPlayerController::StaticClass();
+	GameStateClass = AEIGameState_InBattle::StaticClass();
 	//PlayerStateClass = AWarPlayerState::StaticClass();
-
-	if (nullptr == DefaultPawnClass)
-	{
-		UE_LOG(LogTemp, Error, TEXT("DefaultPawnClass is Nullptr"));
-		return;
-	}
 
 	if (nullptr == PlayerControllerClass)
 	{

@@ -2,6 +2,8 @@
 
 #include "GameInstance/EIProcedureSystem.h"
 
+#include "EliceProject.h"
+
 #include "GameInstance/Procedure/EIProcedureFactory.h"
 
 #include "GameInstance/Procedure/EIProcedure_Base.h"
@@ -10,7 +12,7 @@
 
 UEIProcedureSystem::UEIProcedureSystem()
 {
-
+	InitData();
 }
 
 void UEIProcedureSystem::Tick(float DeltaTime)
@@ -28,15 +30,29 @@ TStatId UEIProcedureSystem::GetStatId() const
 	return TStatId();
 }
 
-void UEIProcedureSystem::InitData(UObject* WorldContextObject)
+void UEIProcedureSystem::InitData()
 {
 	//Level이 열릴때 항상 지켜져야될 순서.
 	AddProcedure(EIProcedureType::PersistentLevelLoad);
 	AddProcedure(EIProcedureType::SubLevelLoad);
 }
 
-void UEIProcedureSystem::OnProcedureExecute(UObject* WorldContextObject)
+void UEIProcedureSystem::SetOpenLevelType(EIOpenLevelType InOpenLevelType)
 {
+	m_OpenLevelType = InOpenLevelType;
+	for (UEIProcedure_Base* Procedure : m_ProcedureOrederList)
+	{
+		if (Procedure == nullptr || Procedure->IsValidLowLevel() == false)
+			continue;
+
+		Procedure->SetOpenLevelType(m_OpenLevelType);
+	}
+}
+
+void UEIProcedureSystem::OnProcedureExecute(UObject* WorldContextObject, EIOpenLevelType InOpenLevelType)
+{
+	SetOpenLevelType(InOpenLevelType);
+
 	for (UEIProcedure_Base* Procedure : m_ProcedureOrederList)
 	{
 		if (Procedure == nullptr || Procedure->IsValidLowLevel() == false)
@@ -49,29 +65,12 @@ void UEIProcedureSystem::OnProcedureExecute(UObject* WorldContextObject)
 void UEIProcedureSystem::AddProcedure(EIProcedureType InProcedureType)
 {
 	UEIProcedure_Base* ProcedureBase = nullptr;
-	ProcedureBase = UEIProcedureFactory::CreateProcedure(GetWorld());
-
-	switch (InProcedureType)
+	ProcedureBase = UEIProcedureFactory::CreateProcedure(GetWorld(), InProcedureType);
+	if (ProcedureBase == nullptr || ProcedureBase->IsValidLowLevel() == false)
 	{
-	case EIProcedureType::PersistentLevelLoad:
-	{
-		UEIProcedure_PersistentLevel* Procedure_PersistentLevel = nullptr;
-		Procedure_PersistentLevel = Cast<UEIProcedure_PersistentLevel>(Procedure_PersistentLevel);
-
-		if (Procedure_PersistentLevel != nullptr && Procedure_PersistentLevel->IsValidLowLevel() == true)
-			m_ProcedureOrederList.Add(Procedure_PersistentLevel);
-
-		break;
+		EI_LOG(Warning, TEXT("[UEIProcedureSystem] ProcedureBase is nullptr"));
+		return;
 	}
-	case EIProcedureType::SubLevelLoad:
-	{
-		UEIProcedure_SubLevelLoad* Procedure_SubLevelLoad = nullptr;
-		Procedure_SubLevelLoad = Cast<UEIProcedure_SubLevelLoad>(Procedure_SubLevelLoad);
 
-		if (Procedure_SubLevelLoad != nullptr && Procedure_SubLevelLoad->IsValidLowLevel() == true)
-			m_ProcedureOrederList.Add(Procedure_SubLevelLoad);
-
-		break;
-	}
-	}
+	m_ProcedureOrederList.Add(ProcedureBase);
 }

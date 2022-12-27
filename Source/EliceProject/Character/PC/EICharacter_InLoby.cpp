@@ -69,11 +69,12 @@ void AEICharacter_InLoby::SetCameraMode()
 
 	m_LobyCamera->FieldOfView = 90.f;
 	m_ArmLengthTo = 200.f;
-	m_LobyCamera->SetRelativeLocationAndRotation(FVector(0.0f, 80.0f, 80.0f), FRotator(-3.0f, 0.0f, 0.0f));
+	m_LobyCamera->SetRelativeLocationAndRotation(FVector(0.0f, 10.f, 50.f), FRotator(-3.0f, 0.0f, 0.0f));
 
-	m_LobyCameraArm->bUsePawnControlRotation = true;
-	m_LobyCameraArm->bInheritPitch = true;
-	m_LobyCameraArm->bInheritRoll = true;
-	m_LobyCameraArm->bInheritYaw = true;
-	m_LobyCameraArm->bDoCollisionTest = true;
+	m_LobyCameraArm->SetWorldRotation(FRotator(-14.0f, -170.0f, 0.0f));
+	m_LobyCameraArm->bUsePawnControlRotation = false;
+	m_LobyCameraArm->bInheritPitch = false;
+	m_LobyCameraArm->bInheritRoll = false;
+	m_LobyCameraArm->bInheritYaw = false;
+	m_LobyCameraArm->bDoCollisionTest = false;
 }

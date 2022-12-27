@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "GameInstance/EIUIDefine.h"
 #include "EIMain_Loby_Form.generated.h"
 
 /**
@@ -23,10 +24,23 @@ public:
 protected:
 	virtual void NativeConstruct() override;
 
-private:
-	//왼쪽 버튼
-	TArray<UEIWidget_LobyButton*> m_MenuButtonList_L;
+protected:
+	UFUNCTION()
+	void Clicked_MatcingButton();
 
-	//오른쪽 버튼.
-	TArray<UEIWidget_LobyButton*> m_MenuButtonList_R;
+	UFUNCTION()
+	void Clicked_BagButton();
+
+	UFUNCTION()
+	void Clicked_ExitButton();
+
+private:
+	UPROPERTY()
+	UEIWidget_LobyButton* m_MatchingButton = nullptr;
+
+	UPROPERTY()
+	UEIWidget_LobyButton* m_BagButton = nullptr;
+
+	UPROPERTY()
+	UEIWidget_LobyButton* m_ExitButton = nullptr;
 };

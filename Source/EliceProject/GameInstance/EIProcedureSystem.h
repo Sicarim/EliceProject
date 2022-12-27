@@ -27,15 +27,22 @@ protected:
 	virtual bool IsTickable() const override;
 	virtual TStatId GetStatId() const override;
 
-protected:
-	UFUNCTION(BlueprintCallable)
-	void InitData(UObject* WorldContextObject);
+public:
+	FORCEINLINE EIOpenLevelType GetCurrentOpenLevelType() { return m_OpenLevelType; }
+
+	void SetOpenLevelType(EIOpenLevelType InOpenLevelType);
 
 	UFUNCTION(BlueprintCallable)
-	void OnProcedureExecute(UObject* WorldContextObject);
+	void OnProcedureExecute(UObject* WorldContextObject, EIOpenLevelType InOpenLevelType);
+
+protected:
+	UFUNCTION(BlueprintCallable)
+	void InitData();
 
 	void AddProcedure(EIProcedureType InProcedureType);
 
 private:
 	TArray<UEIProcedure_Base*> m_ProcedureOrederList;
+
+	EIOpenLevelType m_OpenLevelType = EIOpenLevelType::None;
 };

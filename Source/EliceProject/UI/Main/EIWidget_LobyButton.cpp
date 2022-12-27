@@ -2,6 +2,7 @@
 
 #include "UI/Main/EIWidget_LobyButton.h"
 
+#include "EliceProject.h"
 #include "Components/Button.h"
 #include "Components/EditableTextBox.h"
 
@@ -15,19 +16,16 @@ void UEIWidget_LobyButton::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	m_MenuButton = Cast<UButton>(GetWidgetFromName(TEXT("MenuButton")));
-	if (m_MenuButton == nullptr || m_MenuButton->IsValidLowLevel() == false)
-	{
-		EI_LOG(Warning, TEXT("[UEIWidget_LobyButton] m_MenuButton is nullptr"));
-	}
+	m_MenuButton = Cast<UButton>(GetWidgetFromName(TEXT("LobyButton")));
+	if (m_MenuButton != nullptr && m_MenuButton->IsValidLowLevel() == true)
+		m_MenuButton->OnClicked.AddDynamic(this, &UEIWidget_LobyButton::ClickButtonClickEvent);
 	else
-	{
-		//m_MenuButton->OnClicked.AddDynamic(this, );
-	}
+		EI_LOG(Warning, TEXT("[UEIWidget_LobyButton] LobyButton is nullptr"));
+}
 
-
-	m_MenuButtonText = Cast<UEditableTextBox>(GetWidgetFromName(TEXT("LobyButtonText")));
-	if (m_MenuButtonText == nullptr || m_MenuButtonText->IsValidLowLevel() == false)
-		EI_LOG(Warning, TEXT("[UEIWidget_LobyButton] m_MenuButtonText is nullptr"));
+void UEIWidget_LobyButton::ClickButtonClickEvent()
+{
+	if (m_ClickedButton.IsBound() == true)
+		m_ClickedButton.Execute();
 }
 

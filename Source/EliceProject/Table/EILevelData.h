@@ -24,6 +24,9 @@ struct FEILevelData : public FTableRowBase
 	FText memo;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UWorld* Persistantlevel;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<UWorld*> sublevel_list;
 
 public:
@@ -31,5 +34,6 @@ public:
 	{
 		Level_id = 0;
 		memo = FText();
+		Persistantlevel = nullptr;
 	}
 };

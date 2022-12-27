@@ -27,6 +27,9 @@ protected:
 	virtual void OnPossess(APawn* InPawn) override;
 	virtual void ProcessPlayerInput(const float DeltaTime, const bool bGamePaused) override;
 
+protected:
+	void InitUIData();
+
 private:
 	UPROPERTY()
 	UEIMain_Loby_Form* m_MainLobyWidget = nullptr;

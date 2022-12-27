@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "GameInstance/EILevelDefine.h"
 #include "EIProcedure_Base.generated.h"
 
 /**
@@ -18,6 +19,11 @@ public:
 	UEIProcedure_Base();
 
 public:
+	FORCEINLINE void SetOpenLevelType(EIOpenLevelType InOpenLevelType) { m_OpenLevelType = InOpenLevelType; }
+
 	virtual void InitProcedure(UObject* WorldContextObject);
 	virtual void OnProcedureExecute(UObject* WorldContextObject);
+
+private:
+	EIOpenLevelType m_OpenLevelType = EIOpenLevelType::None;
 };

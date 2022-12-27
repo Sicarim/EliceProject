@@ -14,4 +14,6 @@ class ELICEPROJECT_API AEIGameState_InBattle : public AGameStateBase
 {
 	GENERATED_BODY()
 	
+public:
+	AEIGameState_InBattle();
 };

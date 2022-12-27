@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/WidgetTree.h"
-#include "GameInstance/EILevelDefine.h"
+#include "GameInstance/EIUIDefine.h"
 #include "EIGameUISystem.generated.h"
 
 /**

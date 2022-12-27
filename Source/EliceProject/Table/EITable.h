@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "GameInstance/EIUIDefine.h"
 #include "GameInstance/EILevelDefine.h"
 #include "EITable.generated.h"
 
