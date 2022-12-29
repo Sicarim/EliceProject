@@ -3,12 +3,17 @@
 #include "UI/Main/Form/EIMain_Loby_Form.h"
 
 #include "EliceProject.h"
-#include "GameInstance/EILevelDefine.h"
+
+#include "UI/Main/EIWidget_LobyButton.h"
+
+#include "Kismet/GameplayStatics.h"
+#include "GameInstance/EIGameInstance.h"
+
+
 
 #include "GameInstance/EIProcedureSystem.h"
 #include "Library_System/EIFunctionLibrary_System.h"
-
-#include "UI/Main/EIWidget_LobyButton.h"
+#include "GameInstance/EILevelDefine.h"
 
 UEIMain_Loby_Form::UEIMain_Loby_Form(const FObjectInitializer& ObjectInitializer)
     :Super(ObjectInitializer)
@@ -54,7 +59,16 @@ void UEIMain_Loby_Form::Clicked_MatcingButton()
 	if (ProcedureSystem == nullptr || ProcedureSystem->IsValidLowLevel() == false)
 		return;
 
-	ProcedureSystem->OnProcedureExecute(this, EIOpenLevelType::War_Place);
+	//ProcedureSystem->OnProcedureExecute(this, EIOpenLevelType::War_Place);
+	UGameInstance* GameInstance = UGameplayStatics::GetGameInstance(this);
+	if (GameInstance != nullptr && GameInstance->IsValidLowLevel() == true)
+	{
+		UEIGameInstance* EIGameInstance = Cast<UEIGameInstance>(GameInstance);
+		if (EIGameInstance != nullptr && EIGameInstance->IsValidLowLevel() == true)
+		{
+			EIGameInstance->Request_ExecuteProcedure(EIOpenLevelType::War_Place);
+		}
+	}
 }
 
 void UEIMain_Loby_Form::Clicked_BagButton()

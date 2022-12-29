@@ -7,6 +7,11 @@
 #include "Components/SceneComponent.h"
 
 #include "Character/Common/EIGameCharacter.h"
+#include "Kismet/GameplayStatics.h"
+
+#include "Table/EITable.h"
+#include "Table/EILevelData.h"
+#include "Library_System/EIFunctionLibrary_System.h"
 
 AEIInteractionPuzzle::AEIInteractionPuzzle()
 {
@@ -38,6 +43,17 @@ void AEIInteractionPuzzle::Tick(float DeltaTime)
 void AEIInteractionPuzzle::Interaction_BeginOverlap_Implementation(AActor* InActor)
 {
     EI_LOG(Warning, TEXT("Puzzle Begin"));
+
+    UEITable* Table = UEIFunctionLibrary_System::GetTable(this);
+
+    FEILevelData LevelData;
+    Table->GetLevelDataAt(2, LevelData);
+
+    //FName LevelName = FName(*LevelData.sublevel_path_list[0].ToString());
+    FName LevelName = FName("TestSubLevel");
+
+    FLatentActionInfo LatentInfo;
+    UGameplayStatics::LoadStreamLevel(this, LevelName, true, false, LatentInfo);
 }
 
 void AEIInteractionPuzzle::Interaction_Execute_Implementation(AActor* InActor)

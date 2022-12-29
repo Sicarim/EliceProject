@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "GameInstance/EILevelDefine.h"
 #include "EILevelData.generated.h"
 
 /**
@@ -18,22 +19,30 @@ struct FEILevelData : public FTableRowBase
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 Level_id;
+	EIOpenLevelType openlevel_type;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FText memo;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UWorld* Persistantlevel;
+	FSoftObjectPath persistant_level;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<UWorld*> sublevel_list;
+	FVector teleport_position;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FRotator teleport_rotator;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FSoftObjectPath> sublevel_path_list;
 
 public:
 	FEILevelData()
 	{
-		Level_id = 0;
+		openlevel_type = EIOpenLevelType::None;
 		memo = FText();
-		Persistantlevel = nullptr;
+		persistant_level = nullptr;
+		teleport_position = FVector::ZeroVector;
+		teleport_rotator = FRotator::ZeroRotator;
 	}
 };

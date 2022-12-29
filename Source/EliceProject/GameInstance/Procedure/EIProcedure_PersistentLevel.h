@@ -20,4 +20,13 @@ public:
 public:
 	virtual void InitProcedure(UObject* WorldContextObject) override;
 	virtual void OnProcedureExecute(UObject* WorldContextObject) override;
+	virtual bool IsProcedureComplete() override;
+	virtual void OnRestoreProcedureData() override;
+
+protected:
+	UFUNCTION()
+	void OnLevelChange();
+
+private:
+	bool m_LevelChange = false;
 };

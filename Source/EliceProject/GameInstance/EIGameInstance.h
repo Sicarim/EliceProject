@@ -4,23 +4,23 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
-#include "GameInstance/EIGameUISystem.h"
-#include "GameInstance/EIProcedureSystem.h"
-#include "GameInstance/EILevelSystem.h"
-#include "Interaction/Interface/EIInteractionSystem.h"
-#include "Table/EITable.h"
-
+#include "GameInstance/EILevelDefine.h"
 #include "EIGameInstance.generated.h"
 
 /**
  * 
  */
 
+DECLARE_MULTICAST_DELEGATE(FOnLevelChange_NewWorld);
+DECLARE_MULTICAST_DELEGATE(FOnLevelChange_OldWorld);
+
+class UEITable;
 class UEILevelSystem;
 class UEIGameUISystem;
 class UEIProcedureSystem;
 class UEIInteractionSystem;
-class UEITable;
+
+class UWorld;
 
 UCLASS()
 class ELICEPROJECT_API UEIGameInstance : public UGameInstance
@@ -28,7 +28,7 @@ class ELICEPROJECT_API UEIGameInstance : public UGameInstance
 	GENERATED_BODY()
 
 public:
-	UEIGameInstance();
+	UEIGameInstance(const FObjectInitializer& ObjectInitializer);
 
 public:
 	template <typename T>
@@ -57,6 +57,13 @@ public:
 	virtual void StartGameInstance() override;
 	virtual void OnStart() override;
 	virtual void Shutdown() override;
+	virtual void OnWorldChanged(UWorld* OldWorld, UWorld* NewWorld) override;
+
+public:
+	FORCEINLINE FOnLevelChange_NewWorld& GetLevelChange_NewEvent() { return m_OnLevelChange_NewEvent; }
+	FORCEINLINE FOnLevelChange_OldWorld& GetLevelChange_OleEvent() { return m_OnLevelChange_OldEvent; }
+
+	void Request_ExecuteProcedure(EIOpenLevelType InOpenLevelType);
 
 protected:
 	UEIInteractionSystem* GetInteractionSystem() { return GetInstance<UEIInteractionSystem>(); }
@@ -70,4 +77,7 @@ protected:
 protected:
 	UPROPERTY(Transient)
 	TMap<FName, UObject*> m_Instance;
+
+	FOnLevelChange_NewWorld m_OnLevelChange_NewEvent;
+	FOnLevelChange_OldWorld m_OnLevelChange_OldEvent;
 };
