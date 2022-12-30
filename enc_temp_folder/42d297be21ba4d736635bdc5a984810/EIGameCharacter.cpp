@@ -95,32 +95,32 @@ void AEIGameCharacter::Client_ExecuteInteractionEvent_Implementation(AActor* InI
 //인터랙션 호출 실행
 void AEIGameCharacter::Interaction_CallEvent_Implementation(AActor* InActor, EIInteractionEventType InEventType)
 {
-	if (nullptr == m_InteractionComponent || false == m_InteractionComponent->IsValidLowLevel())
-		return;
-	
-	AEIInteractionBaseActor* InteractionActor = Cast<AEIInteractionBaseActor>(InActor);
-	if (nullptr == InteractionActor || false == InteractionActor->IsValidLowLevel())
-		return;
+	//if (nullptr == m_InteractionComponent || false == m_InteractionComponent->IsValidLowLevel())
+	//	return;
+	//
+	//AEIInteractionBaseActor* InteractionActor = Cast<AEIInteractionBaseActor>(InActor);
+	//if (nullptr == InteractionActor || false == InteractionActor->IsValidLowLevel())
+	//	return;
 
-	UEIInteractionComponent* Comp = InteractionActor->GetInteractionComponent();
-	if (nullptr == Comp || false == Comp->IsValidLowLevel())
-		return;
+	//UEIInteractionComponent* Comp = InteractionActor->GetInteractionComponent();
+	//if (nullptr == Comp || false == Comp->IsValidLowLevel())
+	//	return;
 
-	EIInteractionOperateType OperateType = Comp->GetInteractionOperateType();
-	switch (OperateType)
-	{
-		//클라 실행
-	case EIInteractionOperateType::OnClient:	
-		Client_ExecuteInteractionEvent(this, InActor, InEventType);
-		break;
+	//EIInteractionOperateType OperateType = Comp->GetInteractionOperateType();
+	//switch (OperateType)
+	//{
+	//	//클라 실행
+	//case EIInteractionOperateType::OnClient:	
+	//	Client_ExecuteInteractionEvent(this, InActor, InEventType);
+	//	break;
 
-		//서버 실행
-	case EIInteractionOperateType::OnServer:
-		Interaction_EventProcess_Implementation(InActor, InEventType);
-		break;
+	//	//서버 실행
+	//case EIInteractionOperateType::OnServer:
+	//	Interaction_EventProcess_Implementation(InActor, InEventType);
+	//	break;
 
-	default:	break;
-	}
+	//default:	break;
+	//}
 
 	Client_ExecuteInteractionEvent(this, InActor, InEventType);
 }
@@ -132,6 +132,17 @@ void AEIGameCharacter::Interaction_EventProcess_Implementation(AActor* InActor, 
 		return;
 
 	//데이터 동기화
+	
+
+	/*ENetMode NetMode = GetNetMode();
+	if (ENetMode::NM_Client == NetMode)
+	{
+		EI_LOG(Warning, TEXT("Client"));
+	}
+	if (ENetMode::NM_DedicatedServer == NetMode)
+	{
+		EI_LOG(Warning, TEXT("Server"));
+	}*/
 
 	switch (InEventType)
 	{

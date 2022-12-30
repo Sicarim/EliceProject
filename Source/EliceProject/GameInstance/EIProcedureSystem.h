@@ -4,7 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+
 #include "Tickable.h"
+#include "Engine/World.h"
+
 #include "GameInstance/EILevelDefine.h"
 #include "EIProcedureSystem.generated.h"
 
@@ -43,6 +46,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void OnRestoreProcedure();
+
+	UFUNCTION()
+	void OnAllLevelLoad(ULevel* InLevel, UWorld* InWorld);
 
 protected:
 	void AddProcedure(EIProcedureType InProcedureType);

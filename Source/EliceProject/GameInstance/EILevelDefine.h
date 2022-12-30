@@ -20,5 +20,6 @@ enum class EIProcedureType : uint8
     None,
     PersistentLevelLoad   UMETA(DisplayName = "퍼시스턴트레벨 로딩"),
     SubLevelLoad          UMETA(DisplayName = "서브레벨 로딩"),
+    AllLevelLoad          UMETA(DisplayName = "모든 레벨 완료 체크"),
     Teleport              UMETA(DisplayName = "텔레포트"),
 };

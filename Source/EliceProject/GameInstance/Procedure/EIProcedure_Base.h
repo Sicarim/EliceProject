@@ -28,6 +28,8 @@ public:
 	UEIProcedure_Base();
 
 public:
+	FORCEINLINE EIProcedureType GetProcedureType() { return m_ProcedureType; }
+
 	FORCEINLINE void SetOpenLevelType(EIOpenLevelType InOpenLevelType) { m_OpenLevelType = InOpenLevelType; }
 
 	virtual void InitProcedure(UObject* WorldContextObject);
@@ -40,6 +42,10 @@ public:
 
 protected:
 	EIOpenLevelType m_OpenLevelType = EIOpenLevelType::None;
+	EIProcedureType m_ProcedureType = EIProcedureType::None;
+
+protected:
+	bool m_ProcedureComplete = false;
 
 private:
 	UPROPERTY()

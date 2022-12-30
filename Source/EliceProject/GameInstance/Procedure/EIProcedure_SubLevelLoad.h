@@ -22,4 +22,17 @@ public:
 	virtual void OnProcedureExecute(UObject* WorldContextObject) override;
 	virtual bool IsProcedureComplete() override;
 	virtual void OnRestoreProcedureData() override;
+
+private:
+	UFUNCTION()
+	void OnLoadCompleteSubLevel();
+
+	UFUNCTION()
+	bool OnIsSubLevelLoadComplete();
+
+private:
+	FLevelStreamingLoadedStatus m_OnLevelLoaded;
+
+	int32 m_StreamingCount = 0;
+	bool m_ProcedureComplete = false;
 };

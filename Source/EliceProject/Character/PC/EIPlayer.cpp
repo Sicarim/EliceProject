@@ -11,6 +11,8 @@
 
 #include "Character/Controller/EIPlayerController.h"
 
+#include "Kismet/KismetSystemLibrary.h"
+
 AEIPlayer::AEIPlayer()
 {
 	//Camera Setting
@@ -46,6 +48,19 @@ void AEIPlayer::BeginPlay()
 void AEIPlayer::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
+
+	FVector StartPoint = GetActorLocation() + (0.f, 0.f, 50.f);
+	FVector EndPoint = GetActorLocation() + (0.f, 0.f, -200.f);
+	FHitResult HitResult;
+	FVector HitPoint = FVector::ZeroVector;
+
+	TArray<AActor*> IgnoreActors;
+	bool Result = UKismetSystemLibrary::LineTraceSingleByProfile(this, StartPoint, EndPoint, TEXT("BlockAll"), false, IgnoreActors, EDrawDebugTrace::None, HitResult, true);
+	if (Result == true)
+	{
+		HitPoint = HitResult.ImpactPoint;
+		EI_LOG(Warning, TEXT("asdasdasd : %s"), *HitResult.GetActor()->GetName());
+	}
 }
 
 void AEIPlayer::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)

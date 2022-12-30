@@ -26,7 +26,4 @@ public:
 protected:
 	UFUNCTION()
 	void OnLevelChange();
-
-private:
-	bool m_LevelChange = false;
 };

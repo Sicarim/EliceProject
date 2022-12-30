@@ -7,7 +7,7 @@
 
 UEIProcedure_PersistentLevel::UEIProcedure_PersistentLevel()
 {
-
+	m_ProcedureType = EIProcedureType::PersistentLevelLoad;
 }
 
 void UEIProcedure_PersistentLevel::InitProcedure(UObject* WorldContextObject)
@@ -54,15 +54,15 @@ void UEIProcedure_PersistentLevel::OnProcedureExecute(UObject* WorldContextObjec
 
 bool UEIProcedure_PersistentLevel::IsProcedureComplete()
 {
-	return m_LevelChange;
+	return m_ProcedureComplete;
 }
 
 void UEIProcedure_PersistentLevel::OnLevelChange()
 {
-	m_LevelChange = true;
+	m_ProcedureComplete = true;
 }
 
 void UEIProcedure_PersistentLevel::OnRestoreProcedureData()
 {
-	m_LevelChange = false;
+	m_ProcedureComplete = false;
 }

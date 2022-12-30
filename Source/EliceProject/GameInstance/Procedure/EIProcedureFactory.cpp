@@ -7,6 +7,7 @@
 #include "GameInstance/Procedure/EIProcedure_Base.h"
 #include "GameInstance/Procedure/EIProcedure_PersistentLevel.h"
 #include "GameInstance/Procedure/EIProcedure_SubLevelLoad.h"
+#include "GameInstance/Procedure/EIProcedure_AllLevelLoad.h"
 #include "GameInstance/Procedure/EIProcedure_Teleport.h"
 
 UEIProcedureFactory::UEIProcedureFactory()
@@ -34,6 +35,11 @@ UEIProcedure_Base* UEIProcedureFactory::CreateProcedure(UObject* WorldObjectCont
 		case EIProcedureType::SubLevelLoad:
 		{
 			ProcedureBase = NewObject<UEIProcedure_SubLevelLoad>(WorldObjectContext);
+			break;
+		}
+		case EIProcedureType::AllLevelLoad:
+		{
+			ProcedureBase = NewObject<UEIProcedure_AllLevelLoad>(WorldObjectContext);
 			break;
 		}
 		case EIProcedureType::Teleport:

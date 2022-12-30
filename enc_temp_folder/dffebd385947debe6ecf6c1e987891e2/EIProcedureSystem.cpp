@@ -165,6 +165,7 @@ void UEIProcedureSystem::OnAllLevelLoad(ULevel* InLevel, UWorld* InWorld)
 			if (World == nullptr || World->IsValidLowLevel() == false)
 				return;
 
+			World->PersistentLevel->bIsVisible = true;
 			TArray<ULevelStreaming*> LevelStreamings = World->GetStreamingLevels();
 			for (ULevelStreaming* LevelStreaming : LevelStreamings)
 			{

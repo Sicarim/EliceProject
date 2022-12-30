@@ -5,10 +5,11 @@
 #include "Kismet/GameplayStatics.h"
 
 #include "Character/Common/EIGameCharacter.h"
+#include "Components/CapsuleComponent.h"
 
 UEIProcedure_Teleport::UEIProcedure_Teleport()
 {
-
+	m_ProcedureType = EIProcedureType::Teleport;
 }
 
 void UEIProcedure_Teleport::InitProcedure(UObject* WorldContextObject)
@@ -49,4 +50,16 @@ void UEIProcedure_Teleport::OnProcedureExecute(UObject* WorldContextObject)
 
 	GameCharacter->SetActorNavLocation(LevelData.teleport_position);
 	GameCharacter->SetActorRotation(LevelData.teleport_rotator);
+
+	GameCharacter->GetCapsuleComponent()->SetCollisionProfileName(TEXT("Pawn"));
+}
+
+bool UEIProcedure_Teleport::IsProcedureComplete()
+{
+	return true;
+}
+
+void UEIProcedure_Teleport::OnRestoreProcedureData()
+{
+
 }
