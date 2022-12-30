@@ -54,6 +54,7 @@ void UEIGameInstance::UEIGameInstance::Shutdown()
     m_Instance.Empty();
 }
 
+//* 새로운 퍼시레벨의 추가가 끝나면 호출되는 함수 */
 void UEIGameInstance::OnWorldChanged(UWorld* OldWorld, UWorld* NewWorld)
 {
     Super::OnWorldChanged(OldWorld, NewWorld);
